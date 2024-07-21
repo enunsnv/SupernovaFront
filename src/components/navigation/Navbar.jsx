@@ -42,7 +42,7 @@ function Navbar() {
       <HomeIcon onClick={() => navigate('/main')} />
       <ClockIcon onClick={() => navigate('/timer')} />
       <CodepenIcon onClick={() => navigate('/aiws')} />
-      <CommandIcon onClick={() => navigate('/command')} />
+      <CommandIcon onClick={() => navigate('/ranking')} />
     </Footer>
   );
 }

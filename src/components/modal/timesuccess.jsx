@@ -52,7 +52,7 @@ const Button = styled.button`
     }
 `;
 
-const TimeSuccess = ({ open, onClose }) => {
+const TimeSuccess = ({ open, onClose, earnedEXP }) => {
     return (
         <Modal
             open={open}
@@ -64,7 +64,7 @@ const TimeSuccess = ({ open, onClose }) => {
                 <TextContainer>
                     수고했어요!
                     <br />
-                    <HighlightText>10 * N Exp</HighlightText>를 획득했어요.
+                    <HighlightText>10 * {earnedEXP} Exp</HighlightText>를 획득했어요.
                 </TextContainer>
                 <Button onClick={onClose}>오옝!</Button>
             </Container>
