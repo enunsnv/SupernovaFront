@@ -13,6 +13,7 @@ const Container = styled.div`
   width: 100%;
   max-width: 500px;
   background-color: white;
+  height: 100vh;
 `;
 
 const TextContainer = styled.ul`
@@ -31,7 +32,7 @@ const Text = styled.li`
 
 const TimerIcon = styled.div`
   position: relative;
-  margin: 80px 0 30px;
+  margin: 90px 0 30px;
   width: 100px;
   height: 100px;
   border: 2px solid #F27200;
@@ -82,7 +83,7 @@ const Time = styled.h1`
 const TotalTime = styled.div`
   color: #555555;
   margin-top: 30px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `;
 
 const Header = styled.div`
@@ -121,7 +122,7 @@ const TimerController = styled.div`
   width: 70%;
   display: flex;
   justify-content: space-between;
-  margin: 40px 0;
+  margin: 50px 0;
 `;
 
 const ControllerImg = styled.img`

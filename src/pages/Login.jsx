@@ -9,7 +9,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  margin: 0;
   background-color: white;
 `;
 
@@ -25,7 +24,7 @@ const FormContainer = styled.div`
 const Title = styled.h1`
   font-size: 33px;
   color: #F28E00;
-  margin: 150px 0 30px;
+  margin: 190px 0 50px;
   text-shadow: 1px 1px 20px #F27200;
 `;
 
@@ -46,6 +45,7 @@ const Button = styled.button`
   border-radius: 5px;
   cursor: pointer;
   margin-top: 70px;
+  margin-bottom: 45px;
   width: 100px;
   height: 40px;
   font-size: 15px;
