@@ -11,7 +11,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     height: auto;
-    width: 100%;
+    width: 85%;
     max-width: 400px;
     background-color: white;
     border: 1px solid #F27200;
