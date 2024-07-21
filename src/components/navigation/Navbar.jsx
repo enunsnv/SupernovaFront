@@ -40,7 +40,7 @@ function Navbar() {
     <Footer>
       <HomeIcon onClick={() => navigate('/main')} />
       <ClockIcon onClick={() => navigate('/timer')} />
-      <CodepenIcon onClick={() => navigate('/codepen')} />
+      <CodepenIcon onClick={() => navigate('/aiws')} />
       <CommandIcon onClick={() => navigate('/command')} />
     </Footer>
   );

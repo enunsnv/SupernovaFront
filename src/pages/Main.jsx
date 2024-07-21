@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userIDState } from '../atom/atom';
 import styled from 'styled-components';
+import axios from 'axios';
 import LinkInputModal from '../components/TimeTable/LinkInput';
 import PetSelect from '../components/pet/PetSelect';
 import Navbar from '../components/navigation/Navbar';
@@ -14,6 +15,7 @@ const AppContainer = styled.div`
     height: 100vh;
     justify-content: space-between;
     background-color: #fff;
+    
 `;
 
 const Header = styled.div`
@@ -69,7 +71,7 @@ const InfoText1 = styled.p`
 `;
 
 const InfoText2 = styled.p`
-    font-size: 24px;
+    font-size: 20px;
     text-align: left;
     font-weight: bold;
     margin-top: 4px;
@@ -186,10 +188,10 @@ function Main() {
             <Content>
                 <Info>
                     <InfoText1>
-                        이번 주 공강 N시간 중
+                        이번 주 공강 N시간 N분 중
                     </InfoText1>
                     <InfoText2>
-                        <HighlightedText>N시간</HighlightedText> 을 활용했어요
+                        <HighlightedText>N시간 N분</HighlightedText> 을 활용했어요
                     </InfoText2>
                     <InfoText3>
                         지난 주 대비 N%
