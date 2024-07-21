@@ -52,7 +52,7 @@ const Button = styled.button`
     cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
     font-weight: 500;
     &:hover {
-        background-color: ${({ disabled }) => (disabled ? '#ccc' : '#45a049')};
+        background-color: ${({ disabled }) => (disabled ? '#ccc' : '#F2AB00')};
     }
 `;
 const TimerStop = ({ open, onClose}) => {
