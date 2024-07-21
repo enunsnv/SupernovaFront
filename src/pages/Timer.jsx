@@ -6,14 +6,13 @@ import api from "../axios";
 import Navbar from '../components/navigation/Navbar';
 import TimerStop from '../components/timer/TimerStop';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 500px;
-  background-color: white;
-  height: 100vh;
+const AppContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    justify-content: space-between;
+    background-color: #fff;
 `;
 
 const TextContainer = styled.ul`
@@ -173,7 +172,7 @@ function Timer() {
   };
 
   return (
-    <Container>
+    <AppContainer>
       <Header>
         <ShapeLeft src='/img/left-orange.svg' alt="top shape" />
         <ShapeRight src='/img/right-orange.svg' alt="top shape" />
@@ -198,7 +197,7 @@ function Timer() {
       </TimerController>
       <Navbar />
       <TimerStop open={showModal} onClose={closeModal} />
-    </Container>
+    </AppContainer>
   );
 }
 

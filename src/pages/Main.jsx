@@ -13,7 +13,7 @@ const AppContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 95vh;
+    height: 100vh;
     justify-content: space-between;
     background-color: #fff;
 `;
@@ -21,8 +21,8 @@ const AppContainer = styled.div`
 const Header = styled.div`
     width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
     position: relative;
 `;
