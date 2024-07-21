@@ -7,12 +7,13 @@ import SolveTop from '../components/assets/solve_top.svg';
 import ChallengeSubmit from '../components/modal/challengesubmit'; // Modal 컴포넌트를 import 합니다.
 import ChallengeSuccess from '../components/modal/challengesuccess'; // 성공 모달 컴포넌트를 import 합니다.
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  background-color: white;
+const AppContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    justify-content: space-between;
+    background-color: #fff;
 `;
 
 const Section = styled.div`
@@ -21,7 +22,7 @@ const Section = styled.div`
 `;
 
 const QuestionHeader = styled.div`
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   text-align: left;
   margin-top: 20px;
@@ -58,13 +59,17 @@ const Instructions = styled.ul`
   li {
     margin-bottom: 5px;
     text-align: left;
-    font-size: 13px;
+    font-size: 15px;
     color: gray;
+  }
+  
+  span {
+   color: orange;
   }
 `;
 
 const AnswerTitle = styled.div`
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   text-align: left;
   margin-top: 10px;
@@ -75,10 +80,11 @@ const AnswerTitle = styled.div`
 const AnswerContainer = styled.div`
   position: relative;
   width: 95%;
+  height: 235px;
 `;
 
 const AnswerTextarea = styled.textarea`
-  height: 100px;
+  height: 130px;
   border: none;
   padding: 10px;
   font-size: 16px;
@@ -94,11 +100,11 @@ const SubmitButton = styled.img`
   width: 60px;
   height: 60px;
   position: absolute;
-  bottom: -15px;  /* Adjust as needed */
+  bottom: 10px;  /* Adjust as needed */
   right: -20px;  /* Adjust as needed */
   cursor: pointer;
+ 
 `;
-
 function AIWS() {
   const [answer, setAnswer] = useState('');
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
@@ -126,7 +132,7 @@ function AIWS() {
   };
 
   return (
-    <Container>
+    <AppContainer>
       <ReactSVG src={SolveTop} />
       <Section> 
         <QuestionHeader>이번 주 문제!</QuestionHeader>
@@ -139,8 +145,8 @@ function AIWS() {
         <InstructionsContainer>
           <Instructions>
             <li>⦁ 문제는 매주 업데이트되며 한 주 간 제공돼요</li>
-            <li>⦁ 문제의 정답을 맞히면 Exp +N</li>
-            <li>⦁ 시도만 해도 Exp +N</li>
+            <li>⦁ 문제의 정답을 맞히면 <span>Exp +N</span></li>
+            <li>⦁ 시도만 해도 <span>Exp +N</span></li>
           </Instructions>
         </InstructionsContainer>
       </Section>
@@ -168,7 +174,7 @@ function AIWS() {
         show={isSuccessModalOpen}
         onClose={handleCloseSuccessModal}
       />
-    </Container>
+    </AppContainer>
   );
 }
 

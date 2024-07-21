@@ -34,7 +34,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://port-0-super-novabackend-lyo940s2bbe6eb1c.sel5.cloudtype.app",
   "eslintConfig": {
     "extends": [
       "react-app",

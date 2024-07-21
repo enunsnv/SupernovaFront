@@ -1,0 +1,61 @@
+.time-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33.33%; /* 전체 너비의 3분의 1로 조정 */
+    padding: 0 20px; /* 좌우 패딩 추가 */
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: flex;
+}
+
+.time-row {
+    display: flex;
+    flex-direction: column;
+    margin-right: 0px; /* 좌우 공백 없앰 */
+}
+
+.time-cell {
+    height: 20px; /* 1시간 단위로 높이 조정 */
+    text-align: center;
+    line-height: 24px;
+    border-bottom: 1px solid #ddd; /* 구분선 추가 */
+}
+
+.day-column {
+    display: grid;
+    grid-template-rows: auto repeat(180, 1.67px); /* 5분 단위로 180칸, 높이 1.67px로 조정 */
+    grid-template-columns: 1fr;
+    margin-left: 0px; /* 좌우 공백 없앰 */
+    width: 33px; /* 좌우 너비 조정 */
+}
+
+.day-header {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 0px;
+    height: 24px;
+    grid-row: span 1; /* 상단에 위치 */
+}
+
+.hour-block {
+    display: contents;
+}
+
+.time-block {
+    width: 100%;
+    height: 2px; /* 높이 1.67px로 조정 */
+    box-sizing: border-box; /* 테두리 포함한 크기 조정 */
+}
+
+.time-block.class {
+    background-color: #f0f0f0; /* 예시로 회색 배경 지정 */
+}

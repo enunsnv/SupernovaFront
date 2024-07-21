@@ -23,3 +23,13 @@ export const userIDState = atom({
         }
     ]
 });
+
+export const emptyTimeState = atom({
+    key: 'emptyTimeState',
+    default: 0,
+});
+
+export const timeTableState = atom({
+    key: 'timeTableState',
+    default: [],
+});
