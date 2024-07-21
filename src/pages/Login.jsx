@@ -90,7 +90,7 @@ const Login = () => {
         
         try {
           const response = await api.get(`/main/?userId=${userID}`, {
-            userId: userID
+
           });
     
           } catch (error) {
