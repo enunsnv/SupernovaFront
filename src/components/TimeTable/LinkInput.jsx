@@ -52,6 +52,7 @@ const Button = styled.button`
     font-weight: 500;
     &:hover {
         background-color: ${({ disabled }) => (disabled ? '#ccc' : '#F27200')};
+
     }
 `;
 
