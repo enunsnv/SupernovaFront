@@ -14,7 +14,6 @@ const AppContainer = styled.div`
     height: 100vh;
     justify-content: space-between;
     background-color: #fff;
-    position: relative; /* 추가 */
 `;
 
 const Header = styled.div`
@@ -43,7 +42,6 @@ const SemesterInfo = styled.div`
     color: #000;
     position: absolute;
     right: 20px;
-    flex-direction: row;
 `;
 
 const Content = styled.div`
@@ -110,7 +108,6 @@ const Footer = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-around;
-    padding: 10px 0;
     background-color: #ffe680;
 `;
 
@@ -160,23 +157,26 @@ function Main() {
     const [isLinkInputModalOpen, setIsLinkInputModalOpen] = useState(false);
     const [isPetSelectOpen, setIsPetSelectOpen] = useState(false);
     const [progress, setProgress] = useState(40); // 초기 진행 상황 값을 설정
-    const [selectedPet, setSelectedPet] = useState(null);
 
-    const handleSuccess = (selectedPetIndex) => {
-        setSelectedPet(selectedPetIndex);
+    const handleSuccess = () => {
         setIsPetSelectOpen(false);
         setIsLinkInputModalOpen(true);
-    };
-
-    const openPetSelect = () => {
-        setIsLinkInputModalOpen(false);
-        setIsPetSelectOpen(true);
     };
 
     return (
         <AppContainer>
             <Header>
                 <ToggleButton onClick={() => setIsLinkInputModalOpen(true)} />
+                <LinkInputModal
+                    open={isLinkInputModalOpen}
+                    onClose={() => setIsLinkInputModalOpen(false)}
+                    onSuccess={handleSuccess}
+                />
+                <PetSelect
+                    open={isPetSelectOpen}
+                    onClose={() => setIsPetSelectOpen(false)}
+                    onSuccess={handleSuccess}
+                />
                 <SemesterInfo>
                     <div>0000학년도</div>
                     <div>0학기</div>
@@ -204,19 +204,6 @@ function Main() {
             <Footer>
                 <Navbar />
             </Footer>
-
-            <LinkInputModal
-                open={isLinkInputModalOpen}
-                selectedPet={selectedPet}
-                onClose={() => setIsLinkInputModalOpen(false)}
-                onOpenPetSelect={openPetSelect} // openPetSelect 콜백 추가
-            />
-
-            <PetSelect
-                open={isPetSelectOpen}
-                onClose={() => setIsPetSelectOpen(false)}
-                onSuccess={handleSuccess}
-            />
         </AppContainer>
     );
 }
