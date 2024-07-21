@@ -25,11 +25,9 @@ const FormContainer = styled.div`
   position: relative;
 `;
 
-const Title = styled.h1`
-  font-size: 33px;
-  color: #F28E00;
+const Logo = styled.img`
+  width: 200px;
   margin: 250px 0 50px;
-  text-shadow: 1px 1px 20px #F27200;
 `;
 
 const Input = styled.input`
@@ -116,6 +114,7 @@ const Login = () => {
         setIsPetSelectOpen(true);
       } else {
         setIsNewUser(false);
+        navigate('/main'); // Navigate to main page if not a new user
       }
     } catch (error) {
       console.log(error); 
@@ -142,7 +141,7 @@ const Login = () => {
         />
 
         <ShapeTop src='/img/top-orange.svg' alt="top shape" />
-        <Title>서비스명..</Title>
+        <Logo src='/img/logo.svg' alt="logo" width='100px' height='100px'/>
         <Input
             type="text"
             placeholder="닉네임"
