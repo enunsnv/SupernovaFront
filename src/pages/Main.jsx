@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userIDState } from '../atom/atom';
 import styled from 'styled-components';
-import LinkInputModal from '../components/TimeTable/LinkInput'; // 수정된 LinkInputModal import 경로
-import PetSelect from '../components/pet/PetSelect'; // PetSelect import 경로 추가
+import LinkInputModal from '../components/TimeTable/LinkInput';
+import PetSelect from '../components/pet/PetSelect';
 import Navbar from '../components/navigation/Navbar';
 
 const AppContainer = styled.div`
@@ -14,6 +14,7 @@ const AppContainer = styled.div`
     height: 100vh;
     justify-content: space-between;
     background-color: #fff;
+    position: relative; /* 추가 */
 `;
 
 const Header = styled.div`
@@ -47,7 +48,7 @@ const Semester = styled.div`
     font-weight: 500;
     color: #000;
     position: absolute;
-    right: 50px;
+    right: 20px;
     flex-direction: row;
 `;
 
@@ -124,26 +125,23 @@ function Main() {
     const navigate = useNavigate();
     const [isLinkInputModalOpen, setIsLinkInputModalOpen] = useState(false);
     const [isPetSelectOpen, setIsPetSelectOpen] = useState(false);
+    const [selectedPet, setSelectedPet] = useState(null);
 
-    const handleSuccess = () => {
+    const handleSuccess = (selectedPetIndex) => {
+        setSelectedPet(selectedPetIndex);
         setIsPetSelectOpen(false);
         setIsLinkInputModalOpen(true);
+    };
+
+    const openPetSelect = () => {
+        setIsLinkInputModalOpen(false);
+        setIsPetSelectOpen(true);
     };
 
     return (
         <AppContainer>
             <Header>
                 <ToggleButton onClick={() => setIsLinkInputModalOpen(true)} />
-                <LinkInputModal
-                    open={isLinkInputModalOpen}
-                    onClose={() => setIsLinkInputModalOpen(false)}
-                    onSuccess={handleSuccess}
-                />
-                <PetSelect
-                    open={isPetSelectOpen}
-                    onClose={() => setIsPetSelectOpen(false)}
-                    onSuccess={handleSuccess}
-                />
                 <SemesterInfo>
                     <Semester>0000</Semester>학년도 <Semester>0</Semester>학기
                 </SemesterInfo>
@@ -169,6 +167,19 @@ function Main() {
             <Footer>
                 <Navbar />
             </Footer>
+
+            <LinkInputModal
+                open={isLinkInputModalOpen}
+                selectedPet={selectedPet}
+                onClose={() => setIsLinkInputModalOpen(false)}
+                onOpenPetSelect={openPetSelect} // openPetSelect 콜백 추가
+            />
+
+            <PetSelect
+                open={isPetSelectOpen}
+                onClose={() => setIsPetSelectOpen(false)}
+                onSuccess={handleSuccess}
+            />
         </AppContainer>
     );
 }
