@@ -40,6 +40,7 @@ const PetSelect = ({ open, onClose, onSuccess }) => {
             console.log(error);
         }*/
         onSuccess();
+        console.log(selectedPetIndex);
     };
 
     return (
