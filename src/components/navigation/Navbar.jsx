@@ -8,13 +8,12 @@ const Footer = styled.div`
   justify-content: space-around;
   padding: 10px 0;
   background-color: #ffe680;
-  position: absolute;
-  bottom: 0;
+  box-shadow: 0 -5px 5px -5px gray; /* Added shadow effect */
 `;
 
 const Icon = styled.div`
   width: 30px;
-  height: 30px;
+  height: 40px;
   background-size: cover;
 `;
 
