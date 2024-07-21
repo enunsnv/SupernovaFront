@@ -5,8 +5,9 @@ import { ReactSVG } from 'react-svg';
 import SubmitIcon from '../components/assets/submit.svg';
 import SolveTop from '../components/assets/solve_top.svg';
 import ChallengeSubmit from '../components/modal/challengesubmit'; // Modal 컴포넌트를 import 합니다.
-import ChallengeSuccess from '../components/modal/challengesuccess';
-import api from "../axios"; // 성공 모달 컴포넌트를 import 합니다.
+import ChallengeSuccess from '../components/modal/challengesuccess'; // 성공 모달 컴포넌트를 import 합니다.
+import api from '../axios';
+
 
 const AppContainer = styled.div`
     display: flex;
@@ -106,10 +107,12 @@ const SubmitButton = styled.img`
   cursor: pointer;
  
 `;
+
 function AIWS() {
   const [answer, setAnswer] = useState('');
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [remainingAttempts, setRemainingAttempts] = useState(3);
 
   const handleAnswerChange = (e) => {
     setAnswer(e.target.value);
@@ -123,9 +126,29 @@ function AIWS() {
     setIsSubmitModalOpen(false);
   };
 
-  const handleConfirmSubmitModal = () => {
+  const submitAnswer = async () => {
     setIsSubmitModalOpen(false);
-    setIsSuccessModalOpen(true);
+    const userID = localStorage.getItem('userID');
+        
+    try {
+      const response = await api.post('/submit/', {
+        userId: userID,
+        answer: answer
+      });
+
+      if (response.data.correct) {
+        setIsSuccessModalOpen(true);
+      } else {
+        setRemainingAttempts((prev) => prev - 1);
+        if (remainingAttempts <= 1) {
+          alert('기회가 모두 소진되었습니다.');
+        } else {
+          alert(`틀렸습니다. 남은 기회: ${remainingAttempts - 1}`);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCloseSuccessModal = () => {
@@ -151,7 +174,7 @@ function AIWS() {
   return (
     <AppContainer>
       <ReactSVG src={SolveTop} />
-      <Section> 
+      <Section>
         <QuestionHeader>이번 주 문제!</QuestionHeader>
         <QuestionText>
           Lorem ipsum dolor sit amet consectetur. Sollicitudin quam iaculis mauris egestas mattis.
@@ -183,7 +206,7 @@ function AIWS() {
       <ChallengeSubmit
         show={isSubmitModalOpen}
         onClose={handleCloseSubmitModal}
-        onConfirm={handleConfirmSubmitModal}
+        onConfirm={submitAnswer}
         answer={answer}
       />
 
