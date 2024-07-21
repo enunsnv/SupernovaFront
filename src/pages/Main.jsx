@@ -18,10 +18,10 @@ const AppContainer = styled.div`
 const Header = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
-  width: 100vw;
-  position: relative; // Add relative positioning
+  position: relative;
 `;
 
 const ToggleButton = styled.button`
@@ -33,12 +33,66 @@ const ToggleButton = styled.button`
   cursor: pointer;
 `;
 
+const SemesterInfo = styled.div`
+  font-size: 17px;
+  font-weight: 500;
+  color: #000;
+  position: absolute;
+  right: 20px;
+  flex-direction: row;
+`;
+const Semester = styled.div`
+  font-size: 17px;
+  font-weight: 500;
+  color: #000;
+  position: absolute;
+  right: 20px;
+  flex-direction: row;
+`;
+
 const Content = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: center; 
+  justify-content: center; 
+  width: 100%;
+  padding: 0 20px; 
+`;
+
+const Info = styled.div`
+  width: 100%; 
+  padding: 0 20px; 
+  text-align: left; 
+  margin-left: 80px;
+`;
+
+const InfoText1 = styled.p`
+  color: #000;
+  font-size: 17px;
+  text-align: left;
+  margin-bottom: 4px;
+`;
+
+const InfoText2 = styled.p`
+  font-size: 24px; 
+  text-align: left;
+  font-weight: bold;
+  margin-top: 4px;
+  margin-bottom: 14px;
+`;
+
+const InfoText3 = styled.p`
+  color: #555555;
+  font-size: 13px;
+  text-align: left;
+  margin-top: 14px;
+`;
+
+const HighlightedText = styled.span`
+  color: #F27200;
+  font-weight: bold;
+  font-size: 28px;
 `;
 
 const Placeholder = styled.div`
@@ -62,29 +116,6 @@ const Footer = styled.div`
   justify-content: space-around;
   padding: 10px 0;
   background-color: #ffe680;
-  
-`;
-
-const Icon = styled.div`
-  width: 30px;
-  height: 30px;
-  background-size: cover;
-`;
-
-const HomeIcon = styled(Icon)`
-  background: url('/img/home.svg') no-repeat center center;
-`;
-
-const ClockIcon = styled(Icon)`
-  background: url('/img/clock.svg') no-repeat center center;
-`;
-
-const CodepenIcon = styled(Icon)`
-  background: url('/img/codepen.svg') no-repeat center center;
-`;
-
-const CommandIcon = styled(Icon)`
-  background: url('/img/command.svg') no-repeat center center;
 `;
 
 function Main() {
@@ -92,33 +123,35 @@ function Main() {
   const navigate = useNavigate();
   const [showLinkInput, setShowLinkInput] = useState(false);
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await api.get('/user/data', { params: { userID } });
-//         console.log(response.data);
-//       } catch (error) {
-//         console.error('Error fetching data:', error);
-//       }
-//     };
-
-//     fetchData();
-//   }, [userID]);
-
   return (
     <AppContainer>
       <Header>
         <ToggleButton onClick={() => setShowLinkInput(!showLinkInput)} />
         {showLinkInput && <LinkInput />}
+        <SemesterInfo>
+          <Semester>0000</Semester>학년도 <Semester>0</Semester>학기
+        </SemesterInfo>
       </Header>
+      
       <Content>
-        <p>이번 주 n 시간 중~</p>
+        <Info>
+          <InfoText1>
+            이번 주 공강 N시간 중
+          </InfoText1>
+          <InfoText2>
+            <HighlightedText>N시간</HighlightedText> 을 활용했어요
+          </InfoText2>
+          <InfoText3>
+            지난 주 대비 N%
+          </InfoText3>
+        </Info>
         <Placeholder>
           <PlaceholderText>펫 보이는 곳..</PlaceholderText>
         </Placeholder>
       </Content>
+
       <Footer>
-        <Navbar/>
+        <Navbar />
       </Footer>
     </AppContainer>
   );
