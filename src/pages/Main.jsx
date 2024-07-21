@@ -71,7 +71,6 @@ const ScheduleLink = styled.p`
     &:hover {
         color: #000;
     }
-    
 `;
 
 const Content = styled.div`
@@ -132,8 +131,11 @@ const Placeholder = styled.div`
     border-radius: 10px;
 `;
 
-const PlaceholderText = styled.p`
-    color: #b0b0b0;
+const PlaceholderImg = styled.img`
+    width: 130px;
+    height: 130px;
+    position: relative;
+    top: 20px;
 `;
 
 const Footer = styled.div`
@@ -173,8 +175,9 @@ const LevelText = styled.div`
 `;
 
 const ProgressBar = ({ progress }) => (
+    
     <ProgressBarWrapper>
-        <LevelText>Lv. {Math.floor(progress / 10)}</LevelText>
+        <LevelText>Lv. {Math.floor(progress / 10) + 1}</LevelText>
         <ProgressBarContainer>
             <ProgressBarFill width={progress} />
         </ProgressBarContainer>
@@ -183,7 +186,7 @@ const ProgressBar = ({ progress }) => (
 
 function Main() {
     const [userID, setUserID] = useRecoilState(userIDState);
-    const [progress, setProgress] = useState(40); // Initial progress value
+    const [progress, setProgress] = useState(0); // Initial progress value
     const [data, setData] = useState('');
     const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
@@ -200,7 +203,26 @@ function Main() {
 
     useEffect(() => {
         LoadData();
+        setProgress(ProgressVal);
     }, []);
+
+    const petcode = data.pet_code;
+    const petImageUrl = `/pet/pet${petcode}.gif`;
+
+    const emptySeconds = data.empty_time;
+    const emptyMinutes = Math.floor(emptySeconds / 60);
+    const emptyHours = Math.floor(emptyMinutes / 60);
+    const remainingMinutes = emptyMinutes % 60;
+
+    const TimerSeconds = data.timer_sum;
+    const TimerMinute = Math.floor(TimerSeconds / 60);
+    const TimerHours = Math.floor(TimerMinute / 60);
+    const remainingTimerMinutes = TimerMinute % 60;
+
+    const Percent = parseFloat((TimerSeconds / emptySeconds) * 100).toFixed(2);
+    const ProgressPTG= data.pet_ptg;
+    const ProgressVal = ProgressPTG * 10;
+
 
     return (
         <AppContainer>
@@ -221,19 +243,20 @@ function Main() {
             <Content>
                 <Info>
                     <InfoText1>
-                        이번 주 공강 {data.empty_time}시간 {data.empty_time}분 중
+                        이번 주 공강 {emptyHours}시간 {remainingMinutes}분 중
                     </InfoText1>
                     <InfoText2>
-                        <HighlightedText>{data.timer_sum}시간 {data.timer_sum}분</HighlightedText> 을 활용했어요
+                        <HighlightedText>{TimerHours}시간 {remainingTimerMinutes}분</HighlightedText> 을 활용했어요
                     </InfoText2>
                     <InfoText3>
-                        이번 주 공강의 {data.timer_sum}/{data.empty_time} * 100 % 동시와 함께 하는 중!
+                        이번 주 공강의 {Percent}% 동시와 함께 하는 중!
                     </InfoText3>
                 </Info>
                 <ProgressBar progress={progress} />
                 <Placeholder>
-                    <PlaceholderText>펫 보이는 곳..</PlaceholderText>
+                  <PlaceholderImg src={petImageUrl} alt={`Pet ${petcode}`}/>
                 </Placeholder>
+               
             </Content>
             <Footer>
                 <Navbar />

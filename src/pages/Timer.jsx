@@ -33,7 +33,7 @@ const TimerIcon = styled.div`
   position: relative;
   margin: 90px 0 30px;
   width: 100px;
-  height: 100px;
+  height: 150px;
   border: 2px solid #F27200;
   border-radius: 50%;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
