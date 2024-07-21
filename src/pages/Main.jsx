@@ -12,7 +12,7 @@ const AppContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 95vh;
     justify-content: space-between;
     background-color: #fff;
     
@@ -28,8 +28,9 @@ const Header = styled.div`
 `;
 
 const ToggleButton = styled.button`
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
     background: url('/img/toggle.svg') no-repeat center center;
     background-size: cover;
     border: none;
@@ -61,6 +62,7 @@ const Info = styled.div`
     padding: 0 20px;
     text-align: left;
     margin-left: 80px;
+    margin-top: 100px;
 `;
 
 const InfoText1 = styled.p`
@@ -83,6 +85,7 @@ const InfoText3 = styled.p`
     font-size: 13px;
     text-align: left;
     margin-top: 14px;
+    margin-bottom: 30px;
 `;
 
 const HighlightedText = styled.span`
@@ -92,13 +95,13 @@ const HighlightedText = styled.span`
 `;
 
 const Placeholder = styled.div`
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     background-color: #f5f5f5;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin: 30px 0px 116px;
     border-radius: 10px;
 `;
 
@@ -114,7 +117,7 @@ const Footer = styled.div`
 `;
 
 const ProgressBarContainer = styled.div`
-    width: 150px;
+    width: 190px;
     height: 8px;
     background-color: #e0e0e0;
     border-radius: 10px;
@@ -137,11 +140,10 @@ const ProgressBarWrapper = styled.div`
 `;
 
 const LevelText = styled.div`
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     color: #555555;
-    margin-right: 120px;
-    
+    margin-right: 150px;
 `;
 
 const ProgressBar = ({ progress }) => (
@@ -184,7 +186,6 @@ function Main() {
                     <div>0학기</div>
                 </SemesterInfo>
             </Header>
-
             <Content>
                 <Info>
                     <InfoText1>
@@ -192,6 +193,7 @@ function Main() {
                     </InfoText1>
                     <InfoText2>
                         <HighlightedText>N시간 N분</HighlightedText> 을 활용했어요
+
                     </InfoText2>
                     <InfoText3>
                         지난 주 대비 N%

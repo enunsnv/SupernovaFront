@@ -11,7 +11,9 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 500px;
   background-color: white;
+  height: 100vh;
 `;
 
 const TextContainer = styled.ul`
@@ -24,13 +26,15 @@ const TextContainer = styled.ul`
 
 const Text = styled.li`
   text-align: left; 
+  font-size: 15px;
+  margin-right: 12px;
 `;
 
 const TimerIcon = styled.div`
   position: relative;
-  margin: 140px 0 30px;
-  width: 140px;
-  height: 140px;
+  margin: 90px 0 30px;
+  width: 100px;
+  height: 100px;
   border: 2px solid #F27200;
   border-radius: 50%;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
@@ -39,9 +43,9 @@ const TimerIcon = styled.div`
 const ClockHand = styled.div`
   position: absolute;
   width: 2px;
-  height: 50px;
+  height: 30px;
   background-color: #F27200;
-  top: 23px;
+  top: 20px;
   left: 50%;
   transform-origin: bottom;
   transition: transform 0.1s linear;
@@ -49,11 +53,11 @@ const ClockHand = styled.div`
 
 const TopLine = styled.div`
   position: absolute;
-  width: 43px;
+  width: 33px;
   height: 2px;
   background-color: #F27200;
-  top: -23px;
-  left: 48px;
+  top: -18px;
+  left: 34px;
   border-radius: 2px;
 `;
 
@@ -62,9 +66,9 @@ const SideLine = styled.div`
   width: 27px;
   height: 2px;
   background-color: #F27200;
-  top: 12px;
-  right: -15px;
-  transform: rotate(45deg);
+  top: 13px;
+  right: -18px;
+  transform: rotate(50deg);
   border-radius: 2px;
 `;
 
@@ -78,23 +82,52 @@ const Time = styled.h1`
 
 const TotalTime = styled.div`
   color: #555555;
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 `;
 
-const ShapeTop = styled.img`
+const Header = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100px;
+`;
+
+const ShapeLeft = styled.img`
   position: absolute;
-  right: -10px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  max-width: 250px;
+  z-index: 1;
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+`;
+
+const ShapeRight = styled.img`
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  max-width: 250px;
+  z-index: 2;
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 const TimerController = styled.div`
-  width: 60%;
+  width: 70%;
   display: flex;
   justify-content: space-between;
-  margin: 40px 0;
+  margin: 50px 0;
 `;
 
 const ControllerImg = styled.img`
   cursor: pointer;
+  width: 45px;
 `;
 
 function Timer() {
@@ -141,7 +174,10 @@ function Timer() {
 
   return (
     <Container>
-      <ShapeTop src='/img/top-orange.svg' alt="top shape" />
+      <Header>
+        <ShapeLeft src='/img/left-orange.svg' alt="top shape" />
+        <ShapeRight src='/img/right-orange.svg' alt="top shape" />
+      </Header>
       <TimerIcon>
         <ClockHand style={{ transform: `rotate(${calculateRotation(time)}deg)` }} />
         <TopLine />
