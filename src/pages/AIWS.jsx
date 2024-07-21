@@ -5,6 +5,7 @@ import { ReactSVG } from 'react-svg';
 import SubmitIcon from '../components/assets/submit.svg';
 import SolveTop from '../components/assets/solve_top.svg';
 import ChallengeSubmit from '../components/modal/challengesubmit'; // Modal 컴포넌트를 import 합니다.
+import ChallengeSuccess from '../components/modal/challengesuccess'; // 성공 모달 컴포넌트를 import 합니다.
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ const Section = styled.div`
 `;
 
 const QuestionHeader = styled.div`
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   text-align: left;
   margin-top: 20px;
@@ -57,17 +58,13 @@ const Instructions = styled.ul`
   li {
     margin-bottom: 5px;
     text-align: left;
-    font-size: 15px;
+    font-size: 13px;
     color: gray;
-  }
-  
-  span {
-   color: orange;
   }
 `;
 
 const AnswerTitle = styled.div`
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   text-align: left;
   margin-top: 10px;
@@ -78,11 +75,10 @@ const AnswerTitle = styled.div`
 const AnswerContainer = styled.div`
   position: relative;
   width: 95%;
-  height: 235px;
 `;
 
 const AnswerTextarea = styled.textarea`
-  height: 130px;
+  height: 100px;
   border: none;
   padding: 10px;
   font-size: 16px;
@@ -98,31 +94,35 @@ const SubmitButton = styled.img`
   width: 60px;
   height: 60px;
   position: absolute;
-  bottom: 10px;  /* Adjust as needed */
+  bottom: -15px;  /* Adjust as needed */
   right: -20px;  /* Adjust as needed */
   cursor: pointer;
- 
 `;
 
 function AIWS() {
   const [answer, setAnswer] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   const handleAnswerChange = (e) => {
     setAnswer(e.target.value);
   };
 
   const handleSubmit = () => {
-    setIsModalOpen(true);
+    setIsSubmitModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseSubmitModal = () => {
+    setIsSubmitModalOpen(false);
   };
 
-  const handleConfirmModal = () => {
-    setIsModalOpen(false);
-    console.log('Submitted answer:', answer);
+  const handleConfirmSubmitModal = () => {
+    setIsSubmitModalOpen(false);
+    setIsSuccessModalOpen(true);
+  };
+
+  const handleCloseSuccessModal = () => {
+    setIsSuccessModalOpen(false);
   };
 
   return (
@@ -139,8 +139,8 @@ function AIWS() {
         <InstructionsContainer>
           <Instructions>
             <li>⦁ 문제는 매주 업데이트되며 한 주 간 제공돼요</li>
-            <li>⦁ 문제의 정답을 맞히면 <span>Exp +N</span></li>
-            <li>⦁ 시도만 해도 <span>Exp +N</span></li>
+            <li>⦁ 문제의 정답을 맞히면 Exp +N</li>
+            <li>⦁ 시도만 해도 Exp +N</li>
           </Instructions>
         </InstructionsContainer>
       </Section>
@@ -158,10 +158,15 @@ function AIWS() {
       <Navbar />
 
       <ChallengeSubmit
-        show={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmModal}
+        show={isSubmitModalOpen}
+        onClose={handleCloseSubmitModal}
+        onConfirm={handleConfirmSubmitModal}
         answer={answer}
+      />
+
+      <ChallengeSuccess
+        show={isSuccessModalOpen}
+        onClose={handleCloseSuccessModal}
       />
     </Container>
   );
