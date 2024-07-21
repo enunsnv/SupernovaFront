@@ -40,22 +40,28 @@ const Button = styled.button`
   margin: 10px;
   border: 0px solid #4CAF50;
   border-radius: 10px;
-  background-color: #FFDA69;
+  background-color: ${({ disabled }) => (disabled ? '#ccc' : '#FFDA69')};
   color: black;
   font-size: 14px;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   font-weight: 500;
   &:hover {
-    background-color: #45a049;
+    background-color: ${({ disabled }) => (disabled ? '#ccc' : '#45a049')};
   }
 `;
 
 const LinkInput = () => {
   const [link, setLink] = useState('');
   const [isSelectContainerOpen, setIsSelectContainerOpen] = useState(false);
+  const [selectedPet, setSelectedPet] = useState(null);
 
   const handleChange = (event) => {
     setLink(event.target.value);
+  };
+
+  const handleSelectPet = (pet) => {
+    setSelectedPet(pet);
+    setIsSelectContainerOpen(false);
   };
 
   const handleSubmit = (type) => {
@@ -63,6 +69,7 @@ const LinkInput = () => {
       setIsSelectContainerOpen(true);
     } else if (type === 'submit') {
       console.log('Submitted link:', link);
+      console.log('Selected pet:', selectedPet);
       // 여기에 링크를 제출하는 로직 추가 !!
     }
   };
@@ -70,7 +77,7 @@ const LinkInput = () => {
   return (
     <>
       {isSelectContainerOpen ? (
-        <SelectContainer />
+        <SelectContainer onSelect={handleSelectPet} />
       ) : (
         <Container>
           <Input
@@ -80,7 +87,12 @@ const LinkInput = () => {
             onChange={handleChange}
           />
           <ButtonContainer>
-            <Button onClick={() => handleSubmit('select')}>펫 고르기</Button>
+            <Button
+              onClick={() => handleSubmit('select')}
+              disabled={selectedPet !== null}
+            >
+              {selectedPet !== null ? '펫 선택완료' : '펫 고르기'}
+            </Button>
             <Button onClick={() => handleSubmit('submit')}>등록 완료!</Button>
           </ButtonContainer>
         </Container>
