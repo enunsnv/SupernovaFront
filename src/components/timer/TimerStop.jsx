@@ -74,7 +74,8 @@ const TimerStop = ({ open, onClose }) => {
             console.log(error);
         }
         */
-        setSelectCategoryOpen(true);
+        onClose(); // Close the TimerStop modal
+        setSelectCategoryOpen(true); // Open the SelectCategory modal
     };
 
     return (

@@ -23,7 +23,7 @@ const Container = styled.div`
 `;
 
 const TextContainer = styled.div`
-    text-align:center;
+    text-align: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;
