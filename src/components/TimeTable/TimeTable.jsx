@@ -2,7 +2,21 @@ import React, { useEffect, useState } from 'react';
 import './TimeTable.css';
 import api from '../../axios';
 import { userIDState } from "../../atom/atom";
-import {useRecoilState, useRecoilValue} from "recoil";
+import { useRecoilValue } from "recoil";
+
+const predefinedColors = [
+    '#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
+    '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+    '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
+    '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+];
+
+
+const getRandomColor = () => {
+    return predefinedColors[Math.floor(Math.random() * predefinedColors.length)];
+};
+
+
 
 const TimeTable = () => {
     const userID = useRecoilValue(userIDState); // 상태 읽기 전용
@@ -11,11 +25,12 @@ const TimeTable = () => {
         time_table: [],
         user_id: null
     }); // 초기 상태 설정
+    const [colorMap, setColorMap] = useState({}); // Map to store class colors
 
     const getTimetableData = async () => {
         try {
             const response = await api.get('/gettimetable/', {
-                params: { userId: userID}
+                params: { userId: userID }
             });
             const data = {
                 ...response.data,
@@ -23,15 +38,26 @@ const TimeTable = () => {
             };
 
             setJsonData(data); // 파싱된 데이터로 상태 업데이트
+
+            // Assign random colors to each class block
+            const newColorMap = {};
+            data.time_table.forEach((day, dayIndex) => {
+                day.forEach((block, blockIndex) => {
+                    if (block === 1 && !newColorMap[`${dayIndex}-${blockIndex}`]) {
+                        newColorMap[`${dayIndex}-${blockIndex}`] = getRandomColor(predefinedColors);
+                    }
+                });
+            });
+
+            setColorMap(newColorMap);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     useEffect(() => {
         console.log(userID);
         getTimetableData();
-
     }, [userID]); // userID가 변경될 때만 API를 다시 호출
 
     const days = ['월', '화', '수', '목', '금'];
@@ -57,6 +83,7 @@ const TimeTable = () => {
                             const hasBottomBorder = isClass && (blockIndex === 179 || jsonData.time_table[dayIndex][blockIndex + 109] !== 1);
                             const hasLeftBorder = isClass;
                             const hasRightBorder = isClass;
+                            const color = isClass ? colorMap[`${dayIndex}-${blockIndex}`] : 'transparent';
 
                             return (
                                 <div
@@ -66,7 +93,8 @@ const TimeTable = () => {
                                         borderTop: hasTopBorder ? '1px solid #000' : '',
                                         borderBottom: hasBottomBorder ? '1px solid #000' : '',
                                         borderLeft: hasLeftBorder ? '1px solid #000' : '',
-                                        borderRight: hasRightBorder ? '1px solid #000' : ''
+                                        borderRight: hasRightBorder ? '1px solid #000' : '',
+                                        backgroundColor: color
                                     }}
                                 ></div>
                             );
@@ -77,4 +105,6 @@ const TimeTable = () => {
         </div>
     );
 };
+
 export default TimeTable;
+
