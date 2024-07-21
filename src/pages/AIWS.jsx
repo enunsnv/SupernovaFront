@@ -44,7 +44,6 @@ const QuestionAuthor = styled.div`
   font-size: 14px;
   color: #BBBBBB;
   text-align: right;
-  margin-bottom: 20px;
 `;
 
 const InstructionsContainer = styled.div`
@@ -95,7 +94,6 @@ const AnswerTextarea = styled.textarea`
   border: 1px solid #ffa500;
   background-color: #F5F5F5;
   width: 100%;
-  margin-bottom: 40px;
 `;
 
 const SubmitButton = styled.img`
