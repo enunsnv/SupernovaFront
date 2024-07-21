@@ -81,7 +81,12 @@ const TotalTime = styled.div`
   margin-top: 20px;
 `;
 
-const ShapeTop = styled.img`
+const ShapeLeft = styled.img`
+  position: absolute;
+  left: -10px;
+`;
+
+const ShapeRight = styled.img`
   position: absolute;
   right: -10px;
 `;
@@ -141,7 +146,8 @@ function Timer() {
 
   return (
     <Container>
-      <ShapeTop src='/img/top-orange.svg' alt="top shape" />
+      <ShapeLeft src='/img/left-orange.svg' alt="top shape" />
+      <ShapeRight src='/img/right-orange.svg' alt="top shape" />
       <TimerIcon>
         <ClockHand style={{ transform: `rotate(${calculateRotation(time)}deg)` }} />
         <TopLine />
