@@ -103,7 +103,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
         />
         <SignupButtonContainer>
-          <Button onClick={handleLogin}>로그인</Button>
+          <Button  onClick={() => navigate('/main')}>로그인</Button>
         </SignupButtonContainer>
         <ShapeBottom src='/img/bottom-orange.svg' alt="bottom shape" />
       </FormContainer>
