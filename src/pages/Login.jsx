@@ -16,25 +16,23 @@ const Container = styled.div`
 const FormContainer = styled.div`
   background-color: white;
   border-radius: 10px;
-  padding: 40px;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   text-align: center;
   position: relative;
-  height: 100vh; 
 `;
 
 const Title = styled.h1`
-  margin-bottom: 10px;
-  font-size: 24px;
-  color: #333;
-  margin: 100px 0;
+  font-size: 33px;
+  color: #F28E00;
+  margin: 150px 0 30px;
+  text-shadow: 1px 1px 20px #F27200;
 `;
 
 const Input = styled.input`
-  width: 95%;
+  width: 80%;
   padding: 20px;
-  margin: 10px 0;
+  margin: 10px 30px 10px 0;
   border: none;
   border-radius: 10px;
   background-color: #F5F5F5;
@@ -44,13 +42,15 @@ const Button = styled.button`
   background-color: #FFDA69;
   color: black;
   border: none;
-  padding: 15px;
+  padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 100px;
+  margin-top: 70px;
   width: 100px;
+  height: 40px;
   font-size: 15px;
-
+  box-shadow: 1px 1px 10px #F2AB00;
+  
   &:hover {
     background-color: darkorange;
   }
@@ -65,7 +65,7 @@ const SignupButtonContainer = styled.div`
 
 const ShapeTop = styled.img`
   position: absolute;
-  right: -10px;
+  right: 20px;
 `;
 
 const ShapeBottom = styled.img`
