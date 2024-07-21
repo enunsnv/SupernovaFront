@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 33.33%; /* 전체 너비의 3분의 1로 조정 */
+    width: 66.66%; /* 전체 너비의 3분의 1로 조정 */
     padding: 0 20px; /* 좌우 패딩 추가 */
 }
 
@@ -24,25 +24,26 @@
 }
 
 .time-cell {
-    height: 20px; /* 1시간 단위로 높이 조정 */
+    height: 35px; /* 시간단위 블럭 높이를 36px로 조정 */
     text-align: center;
-    line-height: 24px;
+    line-height: 35px; /* 높이와 일치하도록 line-height 조정 */
     border-bottom: 1px solid #ddd; /* 구분선 추가 */
 }
 
 .day-column {
     display: grid;
-    grid-template-rows: auto repeat(180, 1.67px); /* 5분 단위로 180칸, 높이 1.67px로 조정 */
+    grid-template-rows: auto repeat(180, 3px); /* 5분 단위로 180칸, 높이 3px로 조정 */
     grid-template-columns: 1fr;
     margin-left: 0px; /* 좌우 공백 없앰 */
-    width: 33px; /* 좌우 너비 조정 */
+    width: 66px; /* 좌우 너비 조정 */
 }
 
 .day-header {
     text-align: center;
+    align-content: center;
     font-weight: bold;
     margin-bottom: 0px;
-    height: 24px;
+    height: 36px; /* 시간단위 블럭과 동일한 높이로 조정 */
     grid-row: span 1; /* 상단에 위치 */
 }
 
@@ -52,7 +53,7 @@
 
 .time-block {
     width: 100%;
-    height: 2px; /* 높이 1.67px로 조정 */
+    height: 3px; /* 5분단위 블럭 높이를 3px로 조정 */
     box-sizing: border-box; /* 테두리 포함한 크기 조정 */
 }
 

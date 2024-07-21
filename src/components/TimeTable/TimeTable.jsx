@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './TimeTable.css';
 import api from '../../axios';
 import { userIDState } from "../../atom/atom";
-import { useRecoilValue } from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 
 const TimeTable = () => {
     const userID = useRecoilValue(userIDState); // 상태 읽기 전용
@@ -10,21 +10,28 @@ const TimeTable = () => {
         empty_time: 0,
         time_table: [],
         user_id: null
-    });
+    }); // 초기 상태 설정
 
     const getTimetableData = async () => {
         try {
             const response = await api.get('/gettimetable/', {
-                params: { userId: "한동호" }
+                params: { userId: userID}
             });
-            setJsonData(response.data);
+            const data = {
+                ...response.data,
+                time_table: JSON.parse(response.data.time_table) // 문자열로 된 time_table을 배열로 파싱
+            };
+
+            setJsonData(data); // 파싱된 데이터로 상태 업데이트
         } catch (error) {
             console.log(error);
         }
     }
 
     useEffect(() => {
+        console.log(userID);
         getTimetableData();
+
     }, [userID]); // userID가 변경될 때만 API를 다시 호출
 
     const days = ['월', '화', '수', '목', '금'];
