@@ -88,6 +88,7 @@ function SelectContainer({ onClick }) {
                         key={index}
                         onClick={() => handlePetClick(index)}
                         selected={selectedPet === index}
+                        imageUrl={`../pet/pet${index}.gif`}
                     />
                 ))}
             </div>
