@@ -129,7 +129,6 @@ const Footer = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-around;
-    background-color: #ffe680;
 `;
 
 const ProgressBarContainer = styled.div`

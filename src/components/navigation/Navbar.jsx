@@ -7,8 +7,9 @@ const Footer = styled.div`
   display: flex;
   justify-content: space-around;
   padding: 10px 0;
-  background-color: #ffe680;
-  box-shadow: 0 -5px 5px -5px gray; /* Added shadow effect */
+  padding-top:50px;
+  background: url('/img/nav.svg') no-repeat center center;
+  background-size: cover; /* Ensures the SVG covers the entire background */
 `;
 
 const Icon = styled.div`
