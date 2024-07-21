@@ -8,6 +8,8 @@ const Footer = styled.div`
   justify-content: space-around;
   padding: 10px 0;
   background-color: #ffe680;
+  position: absolute;
+  bottom: 0;
 `;
 
 const Icon = styled.div`

@@ -58,12 +58,39 @@ const LinkInput = () => {
     setLink(event.target.value);
   };
 
-  const handleSubmit = (type) => {
+  const handleSubmit = async () => {
+    const userId = "yourUserId"; // 여기에 사용자의 ID를 넣습니다.
+    const everytimeUrl = link;
+
+    try {
+      const response = await fetch('/loadtimetable', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId,
+          everytime_url: everytimeUrl,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('Success:', data);
+      // 여기서 데이터를 처리합니다.
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleButtonClick = (type) => {
     if (type === 'select') {
       setIsSelectContainerOpen(true);
     } else if (type === 'submit') {
-      console.log('Submitted link:', link);
-      // 여기에 링크를 제출하는 로직 추가 !!
+      handleSubmit();
     }
   };
 
@@ -80,8 +107,8 @@ const LinkInput = () => {
             onChange={handleChange}
           />
           <ButtonContainer>
-            <Button onClick={() => handleSubmit('select')}>펫 고르기</Button>
-            <Button onClick={() => handleSubmit('submit')}>등록 완료!</Button>
+            <Button onClick={() => handleButtonClick('select')}>펫 고르기</Button>
+            <Button onClick={() => handleButtonClick('submit')}>등록 완료!</Button>
           </ButtonContainer>
         </Container>
       )}
