@@ -20,7 +20,7 @@ const Section = styled.div`
 `;
 
 const QuestionHeader = styled.div`
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   text-align: left;
   margin-top: 20px;
@@ -57,13 +57,17 @@ const Instructions = styled.ul`
   li {
     margin-bottom: 5px;
     text-align: left;
-    font-size: 13px;
+    font-size: 15px;
     color: gray;
+  }
+  
+  span {
+   color: orange;
   }
 `;
 
 const AnswerTitle = styled.div`
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   text-align: left;
   margin-top: 10px;
@@ -74,10 +78,11 @@ const AnswerTitle = styled.div`
 const AnswerContainer = styled.div`
   position: relative;
   width: 95%;
+  height: 235px;
 `;
 
 const AnswerTextarea = styled.textarea`
-  height: 100px;
+  height: 130px;
   border: none;
   padding: 10px;
   font-size: 16px;
@@ -93,9 +98,10 @@ const SubmitButton = styled.img`
   width: 60px;
   height: 60px;
   position: absolute;
-  bottom: -15px;  /* Adjust as needed */
+  bottom: 10px;  /* Adjust as needed */
   right: -20px;  /* Adjust as needed */
   cursor: pointer;
+ 
 `;
 
 function AIWS() {
@@ -133,8 +139,8 @@ function AIWS() {
         <InstructionsContainer>
           <Instructions>
             <li>⦁ 문제는 매주 업데이트되며 한 주 간 제공돼요</li>
-            <li>⦁ 문제의 정답을 맞히면 Exp +N</li>
-            <li>⦁ 시도만 해도 Exp +N</li>
+            <li>⦁ 문제의 정답을 맞히면 <span>Exp +N</span></li>
+            <li>⦁ 시도만 해도 <span>Exp +N</span></li>
           </Instructions>
         </InstructionsContainer>
       </Section>
