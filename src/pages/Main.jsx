@@ -8,6 +8,7 @@ import LinkInputModal from '../components/TimeTable/LinkInput';
 import PetSelect from '../components/pet/PetSelect';
 import Navbar from '../components/navigation/Navbar';
 import ViewSchedule from '../components/modal/viewschedule';
+import api from '../axios';
 
 const AppContainer = styled.div`
     display: flex;
@@ -178,11 +179,31 @@ function Main() {
     const [isPetSelectOpen, setIsPetSelectOpen] = useState(false);
     const [isScheduleOpen, setIsScheduleOpen] = useState(false);
     const [progress, setProgress] = useState(40); // 초기 진행 상황 값을 설정
+    const [year_info, setYearInfo] = useState('');
 
     const handleSuccess = () => {
         setIsPetSelectOpen(false);
         setIsLinkInputModalOpen(true);
     };
+
+    const handleLogin  = async () => {
+        const userID = localStorage.getItem('userID');
+            try {
+              const response = await api.get(`/main/?userId=${userID}`, {
+              });
+
+              setYearInfo(response.data.year_info);
+
+              } catch (error) {
+                console.log(error); 
+              }
+    
+        navigate('/main');
+      };
+
+      useEffect(() => {
+        handleLogin();
+        }, [userID]);
 
     return (
         <AppContainer>
@@ -203,7 +224,7 @@ function Main() {
                     onClose={() => setIsScheduleOpen(false)}
                 />
                 <SemesterInfo>
-                    <div>0000학년도 0학기</div>
+                    <div>{year_info}학년도 0학기</div>
                     <ScheduleLink onClick={() => setIsScheduleOpen(true)}>
                         이번학기 시간표 확인하기
                     </ScheduleLink>
