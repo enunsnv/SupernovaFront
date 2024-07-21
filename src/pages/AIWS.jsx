@@ -4,6 +4,7 @@ import Navbar from '../components/navigation/Navbar';
 import { ReactSVG } from 'react-svg';
 import SubmitIcon from '../components/assets/submit.svg';
 import SolveTop from '../components/assets/solve_top.svg';
+import ChallengeSubmit from '../components/modal/challengesubmit'; // Modal 컴포넌트를 import 합니다.
 
 const Container = styled.div`
   display: flex;
@@ -99,12 +100,22 @@ const SubmitButton = styled.img`
 
 function AIWS() {
   const [answer, setAnswer] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAnswerChange = (e) => {
     setAnswer(e.target.value);
   };
 
   const handleSubmit = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleConfirmModal = () => {
+    setIsModalOpen(false);
     console.log('Submitted answer:', answer);
   };
 
@@ -139,6 +150,13 @@ function AIWS() {
         </AnswerContainer>
       </Section>
       <Navbar />
+
+      <ChallengeSubmit
+        show={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmModal}
+        answer={answer}
+      />
     </Container>
   );
 }
