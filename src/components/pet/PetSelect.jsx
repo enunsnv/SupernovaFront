@@ -30,9 +30,9 @@ const PetSelect = ({ open, onClose, onSuccess }) => {
 
     const handleSelectedPet = async (selectedPetIndex) => {
         try {
-            const response = await api.post('/pet_select', {
+            const response = await api.post('/pet_select/', {
                 userId: userID,
-                pet_state: selectedPetIndex
+                pet_code: selectedPetIndex
             });
             console.log(response);
             onSuccess();

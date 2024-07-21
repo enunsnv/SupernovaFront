@@ -83,7 +83,7 @@ function SelectContainer({ onClick }) {
     return (
         <Container>
             <div className="select-container">
-                {[0, 1, 2, 3].map(index => (
+                {[1, 2, 3, 4].map(index => (
                     <Pet
                         key={index}
                         onClick={() => handlePetClick(index)}
