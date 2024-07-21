@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Modal } from '@mui/material';
+import TimeTable from "../TimeTable/TimeTable";
 
 const Container = styled.div`
     display: flex;
@@ -26,15 +27,15 @@ const Container = styled.div`
 const ScheduleWrapper = styled.div`
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
     width: 100%;
-    margin-bottom: 20px;
+    margin-top: 20px;
 `;
 
 const ScheduleContainer = styled.div`
+    display: flex;
     width: 100%;
-    display: grid;
-    gap: 2px;
+    flex-direction: column;
+    align-items: center;
 `;
 
 const TimeSlot = styled.div`
@@ -76,7 +77,7 @@ const ViewSchedule = ({ open, onClose }) => {
             <Container>
                 <ScheduleWrapper>
                     <ScheduleContainer>
-                        {/* Add your TimeSlot components here */}
+                        <TimeTable />
                     </ScheduleContainer>
                 </ScheduleWrapper>
                 <Button onClick={onClose}>확인</Button>

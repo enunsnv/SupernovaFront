@@ -135,7 +135,22 @@ function Timer() {
   const [showModal, setShowModal] = useState(false);
   const requestRef = useRef();
 
+  const LoadUserTime = async () => {
+    const userID = localStorage.getItem('userID')
+    
+    try {
+      const userTime = await api.get(`/timer/?userId=${userID}`, {
+    
+      });
+
+      } catch (error) {
+        console.log(error); 
+      }
+    }
+
   useEffect(() => {
+    LoadUserTime();
+
     if (isRunning) {
       const start = Date.now() - time * 1000;
       const update = () => {
@@ -156,9 +171,37 @@ function Timer() {
     return `${h}:${m}:${s}`;
   };
 
-  const handlePlay = () => setIsRunning(true);
+  const handlePlay = async () => {
+    const userID = localStorage.getItem('userID')
+    
+    try {
+      const response = await api.post('/start_timer/', {
+        userId: userID
+      });
+        setIsRunning(true);
+
+      } catch (error) {
+        console.log(error); 
+      }
+    }
+
   const handlePause = () => setIsRunning(false);
-  const handleQuit = () => setShowModal(true);
+
+  const handleQuit = async () => {
+    const userID = localStorage.getItem('userID')
+    
+    try {
+      const response = await api.post('/stop_timer/', {
+        userId: userID,
+      });
+        setIsRunning(false);
+        setShowModal(true);
+      } catch (error) {
+        console.log(error); 
+      }
+    }
+
+    
 
   const calculateRotation = (time) => {
     return time * 6;

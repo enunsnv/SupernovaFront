@@ -3,21 +3,22 @@ import styled from 'styled-components';
 import {userIDState} from "../atom/atom";
 import {useSetRecoilState} from "recoil";
 import {useNavigate} from "react-router-dom";
+import api from '../axios';
 
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background-color: white;
-
+const AppContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    height: 100%;
 `;
 
 const FormContainer = styled.div`
   background-color: white;
   border-radius: 10px;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   text-align: center;
   position: relative;
 `;
@@ -25,14 +26,14 @@ const FormContainer = styled.div`
 const Title = styled.h1`
   font-size: 33px;
   color: #F28E00;
-  margin: 190px 0 50px;
+  margin: 250px 0 50px;
   text-shadow: 1px 1px 20px #F27200;
 `;
 
 const Input = styled.input`
   width: 80%;
   padding: 20px;
-  margin: 10px 30px 10px 0;
+  margin: 10px 0;
   border: none;
   border-radius: 10px;
   background-color: #F5F5F5;
@@ -66,12 +67,15 @@ const SignupButtonContainer = styled.div`
 
 const ShapeTop = styled.img`
   position: absolute;
-  right: 20px;
+  right: 0px;
+  width: 50%
 `;
 
 const ShapeBottom = styled.img`
   position: absolute;
   left: -10px;
+  height: auto; 
+  width: 50%;
 `;
 
 const Login = () => {
@@ -80,14 +84,24 @@ const Login = () => {
   const setUserID = useSetRecoilState(userIDState);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin  = async () => {
     const userID = `${nickname}@${password}`;
     setUserID(userID);
+        
+        try {
+          const response = await api.get(`/main/?userId=${userID}`, {
+
+          });
+    
+          } catch (error) {
+            console.log(error); 
+          }
+
     navigate('/main');
   };
 
   return (
-    <Container>
+    <AppContainer>
       <FormContainer>
         <ShapeTop src='/img/top-orange.svg' alt="top shape" />
         <Title>서비스명..</Title>
@@ -108,7 +122,7 @@ const Login = () => {
         </SignupButtonContainer>
         <ShapeBottom src='/img/bottom-orange.svg' alt="bottom shape" />
       </FormContainer>
-    </Container>
+    </AppContainer>
   );
 };
 

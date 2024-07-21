@@ -178,12 +178,17 @@ function Main() {
     const [isPetSelectOpen, setIsPetSelectOpen] = useState(false);
     const [isScheduleOpen, setIsScheduleOpen] = useState(false);
     const [progress, setProgress] = useState(40); // 초기 진행 상황 값을 설정
+    const [isPetSelected, setIsPetSelected] = useState(false);
 
     const handleSuccess = () => {
         setIsPetSelectOpen(false);
         setIsLinkInputModalOpen(true);
+        setIsPetSelected(true);
     };
-
+    const openselect = () => {
+        setIsPetSelectOpen(true);
+        setIsLinkInputModalOpen(false);
+    }
     return (
         <AppContainer>
             <Header>
@@ -191,7 +196,8 @@ function Main() {
                 <LinkInputModal
                     open={isLinkInputModalOpen}
                     onClose={() => setIsLinkInputModalOpen(false)}
-                    onSuccess={handleSuccess}
+                    onOpenPetSelect={openselect}
+                    isPetSelected={isPetSelected}
                 />
                 <PetSelect
                     open={isPetSelectOpen}

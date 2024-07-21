@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/navigation/Navbar';
 import { ReactSVG } from 'react-svg';
@@ -7,6 +7,7 @@ import SolveTop from '../components/assets/solve_top.svg';
 import ChallengeSubmit from '../components/modal/challengesubmit'; // Modal 컴포넌트를 import 합니다.
 import ChallengeSuccess from '../components/modal/challengesuccess'; // 성공 모달 컴포넌트를 import 합니다.
 import api from '../axios';
+
 
 const AppContainer = styled.div`
     display: flex;
@@ -153,6 +154,22 @@ function AIWS() {
   const handleCloseSuccessModal = () => {
     setIsSuccessModalOpen(false);
   };
+
+  const data = useState([]);
+
+  const getQuizes = async () => {
+    try {
+      const response = await api.get('/quiz/');
+      const data = await response.data;
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getQuizes();
+  }, []);
 
   return (
     <AppContainer>

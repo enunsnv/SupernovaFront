@@ -29,16 +29,16 @@ const PetSelect = ({ open, onClose, onSuccess }) => {
     const [userID] = useRecoilState(userIDState);
 
     const handleSelectedPet = async (selectedPetIndex) => {
-/*        try {
-            const response = await api.post('/pet_select', {
+        try {
+            const response = await api.post('/pet_select/', {
                 userId: userID,
-                pet_state: selectedPetIndex
+                pet_code: selectedPetIndex
             });
             console.log(response);
             onSuccess();
         } catch (error) {
             console.log(error);
-        }*/
+        }
         onSuccess();
         console.log(selectedPetIndex);
     };
