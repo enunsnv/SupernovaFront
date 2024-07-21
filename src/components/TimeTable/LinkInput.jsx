@@ -9,7 +9,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     height: auto;
-    width: 100%;
+    width: 80%;
     max-width: 400px;
     background-color: white;
     border: 1px solid #F27200;
@@ -52,7 +52,6 @@ const Button = styled.button`
     font-weight: 500;
     &:hover {
         background-color: ${({ disabled }) => (disabled ? '#ccc' : '#F27200')};
-
     }
 `;
 
@@ -92,9 +91,14 @@ const LinkInputModal = ({ open, onClose, onOpenPetSelect, selectedPet }) => {
                         onClick={() => handleSubmit('select')}
                         disabled={selectedPet !== null}
                     >
-                        {selectedPet !== null ? '펫 선택완료' : '펫 고르기'}
+                        {selectedPet !== null ? '펫 선택완료' : '펫 고르기'} 
                     </Button>
-                    <Button onClick={() => handleSubmit('submit')}>등록 완료!</Button>
+                    <Button 
+                        onClick={() => handleSubmit('submit')}
+                        disabled={selectedPet === null} 
+                    >
+                        등록 완료!
+                    </Button>
                 </ButtonContainer>
             </Container>
         </Modal>

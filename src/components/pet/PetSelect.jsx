@@ -29,7 +29,7 @@ const PetSelect = ({ open, onClose, onSuccess }) => {
     const [userID] = useRecoilState(userIDState);
 
     const handleSelectedPet = async (selectedPetIndex) => {
-/*        try {
+        try {
             const response = await api.post('/pet_select', {
                 userId: userID,
                 pet_state: selectedPetIndex
@@ -38,7 +38,7 @@ const PetSelect = ({ open, onClose, onSuccess }) => {
             onSuccess();
         } catch (error) {
             console.log(error);
-        }*/
+        }
         onSuccess();
         console.log(selectedPetIndex);
     };
