@@ -57,25 +57,26 @@ const Button = styled.button`
     }
 `;
 
-const TimerStop = ({ open, onClose }) => {
-    const [userID] = useRecoilState(userIDState);
+const TimerStop = ({ open, onClose, setIsRunning, setTime }) => {
+    const userID = useRecoilState(userIDState);
     const [selectCategoryOpen, setSelectCategoryOpen] = useState(false);
 
     const StopTimer = async () => {
-        // Uncomment and update the code below to integrate with your API
-        /*
+        const userID = localStorage.getItem('userID');
         try {
-            const response = await api.post('/stoptimer', {
+            const response = await api.post('/stop_timer/', {
                 userId: userID,
             });
+            setTime(0);
+            setIsRunning(false);
             console.log(response);
+
             onClose();
         } catch (error) {
             console.log(error);
         }
-        */
-        onClose(); // Close the TimerStop modal
-        setSelectCategoryOpen(true); // Open the SelectCategory modal
+        onClose(); // 모달 닫기
+        setSelectCategoryOpen(true); // 다음 카테고리 선택 모달 열기
     };
 
     return (

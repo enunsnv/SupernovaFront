@@ -187,21 +187,9 @@ function Timer() {
 
   const handlePause = () => setIsRunning(false);
 
-  const handleQuit = async () => {
-    const userID = localStorage.getItem('userID')
-    
-    try {
-      const response = await api.post('/stop_timer/', {
-        userId: userID,
-      });
-        setIsRunning(false);
-        setShowModal(true);
-      } catch (error) {
-        console.log(error); 
-      }
-    }
-
-    
+  const quitmodal = () => {
+    setShowModal(true);
+  };
 
   const calculateRotation = (time) => {
     return time * 6;
@@ -209,9 +197,9 @@ function Timer() {
 
   const closeModal = () => {
     setShowModal(false);
-    setIsRunning(false);
-    alert(`Elapsed time: ${formatTime(time)}`);
-    setTime(0);
+    if(!isRunning){
+        setTime(0);
+    }
   };
 
   return (
@@ -236,10 +224,10 @@ function Timer() {
       <TimerController>
         <ControllerImg src="/img/timer-play.svg" alt="Play" onClick={handlePlay} />
         <ControllerImg src="/img/timer-pause.svg" alt="Pause" onClick={handlePause} />
-        <ControllerImg src="/img/timer-quit.svg" alt="Quit" onClick={handleQuit} />
+        <ControllerImg src="/img/timer-quit.svg" alt="Quit" onClick={quitmodal} />
       </TimerController>
       <Navbar />
-      <TimerStop open={showModal} onClose={closeModal} />
+      <TimerStop open={showModal} onClose={closeModal} setIsRunning={setIsRunning} setTime={setTime}/>
     </AppContainer>
   );
 }
