@@ -1,7 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: 'https://port-0-super-novabackend-lyo940s2bbe6eb1c.sel5.cloudtype.app/',
+    headers: {
+        'Content-Type': 'application/json'
+    },
 });
 
 export default api;
