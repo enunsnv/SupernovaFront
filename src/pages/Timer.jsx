@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import api from "../axios";
 import Navbar from '../components/navigation/Navbar';
+import TimerStop from '../components/timer/TimerStop';
 
 const Container = styled.div`
   display: flex;
@@ -99,6 +100,7 @@ const ControllerImg = styled.img`
 function Timer() {
   const [isRunning, setIsRunning] = useState(false);
   const [time, setTime] = useState(0);
+  const [showModal, setShowModal] = useState(false);
   const requestRef = useRef();
 
   useEffect(() => {
@@ -124,14 +126,17 @@ function Timer() {
 
   const handlePlay = () => setIsRunning(true);
   const handlePause = () => setIsRunning(false);
-  const handleQuit = () => {
+  const handleQuit = () => setShowModal(true);
+
+  const calculateRotation = (time) => {
+    return time * 6;
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
     setIsRunning(false);
     alert(`Elapsed time: ${formatTime(time)}`);
     setTime(0);
-  };
-
-  const calculateRotation = (time) => {
-    return time  * 6;
   };
 
   return (
@@ -139,12 +144,12 @@ function Timer() {
       <ShapeTop src='/img/top-orange.svg' alt="top shape" />
       <TimerIcon>
         <ClockHand style={{ transform: `rotate(${calculateRotation(time)}deg)` }} />
-        <TopLine/>
-        <SideLine/>
+        <TopLine />
+        <SideLine />
       </TimerIcon>
       <TotalTime>오늘의 공강 : N시간 N분</TotalTime>
       <Time>{formatTime(time)}</Time>
-      <TextContainer> 
+      <TextContainer>
         <Text>타이머 켜야 인정돼요</Text>
         <Text>공강 시간이 끝나면 자동으로 종료돼요</Text>
         <Text><b>[ 종료 시간 - 시작시간 ]</b> 으로 측정돼요</Text>
@@ -156,6 +161,7 @@ function Timer() {
         <ControllerImg src="/img/timer-quit.svg" alt="Quit" onClick={handleQuit} />
       </TimerController>
       <Navbar />
+      <TimerStop open={showModal} onClose={closeModal} />
     </Container>
   );
 }
