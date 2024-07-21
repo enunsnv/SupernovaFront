@@ -134,19 +134,22 @@ function Timer() {
   const [time, setTime] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const requestRef = useRef();
+  const [data, setData] = useState('');
+  const [totalBreakTime, setTotalBreakTime] = useState(0);
 
   const LoadUserTime = async () => {
-    const userID = localStorage.getItem('userID')
+    const userID = localStorage.getItem('userID');
     
     try {
-      const userTime = await api.get(`/timer/?userId=${userID}`, {
-    
-      });
-
-      } catch (error) {
-        console.log(error); 
-      }
+      const response = await api.get(`/timer/?userId=${userID}`);
+      const userTime = response.data;
+      setData(userTime);
+      setTotalBreakTime(userTime.today_total_min);
+      setTime(userTime.unix_time);
+    } catch (error) {
+      console.log(error); 
     }
+  }
 
   useEffect(() => {
     LoadUserTime();
@@ -172,18 +175,17 @@ function Timer() {
   };
 
   const handlePlay = async () => {
-    const userID = localStorage.getItem('userID')
+    const userID = localStorage.getItem('userID');
     
     try {
       const response = await api.post('/start_timer/', {
         userId: userID
       });
-        setIsRunning(true);
-
-      } catch (error) {
-        console.log(error); 
-      }
+      setIsRunning(true);
+    } catch (error) {
+      console.log(error); 
     }
+  }
 
   const handlePause = () => setIsRunning(false);
 
@@ -198,8 +200,14 @@ function Timer() {
   const closeModal = () => {
     setShowModal(false);
     if(!isRunning){
-        setTime(0);
+      setTime(0);
     }
+  };
+
+  const formatTotalBreakTime = (minutes) => {
+    const h = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    return `${h}시간 ${m}분`;
   };
 
   return (
@@ -213,7 +221,7 @@ function Timer() {
         <TopLine />
         <SideLine />
       </TimerIcon>
-      <TotalTime>오늘의 공강 : N시간 N분</TotalTime>
+      <TotalTime>오늘의 공강 : {formatTotalBreakTime(totalBreakTime)}</TotalTime>
       <Time>{formatTime(time)}</Time>
       <TextContainer>
         <Text>타이머 켜야 인정돼요</Text>
