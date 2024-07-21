@@ -80,7 +80,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    const userID = `${nickname}#${password}`;
+    const userID = `${nickname}@${password}`;
     setUserID(userID);
     navigate('/main');
   };
