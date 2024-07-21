@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import './monster.css';
 
-function monster({ onClick }) {
-    const button_clicked = async () => {
-        alert('Button Clicked');
-    }
+function Monster({ onClick, selected }) {
 
-    return (null
+    return (
+        <div className={`monster-container ${selected ? 'selected' : ''}`}>
+            <button onClick={onClick}>monster</button>
+        </div>
     );
 }
 
-export default monster;
+export default Monster;

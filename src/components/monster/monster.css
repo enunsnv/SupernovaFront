@@ -1,0 +1,32 @@
+.monster-container {
+    background-color: #f0f0f0; /* 밝은 회색 */
+    padding: 20px;
+    border-radius: 10px; /* 둥근 모서리 */
+    display: inline-block; /* 내용에 맞는 크기로 */
+    border : none;
+    height: 100%;
+    width: 100%; /* 부모 그리드 셀의 크기에 맞추기 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
+}
+
+.monster-container.selected {
+    border: 2px solid #FFDA69; /* 검은색 테두리 */
+}
+
+.select-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px; /* 그리드 아이템 간의 간격 */
+    width: 60%;
+    height: 60%;
+}
+
+.parent-container {
+    display: flex;
+    flex-direction: column; /* 수직 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 (선택 사항) */
+    height: 100vh; /* 화면 전체 높이 */
+    gap: 20px;
+}

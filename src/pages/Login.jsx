@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import {userIDState} from "../atom/atom";
+import {useSetRecoilState} from "recoil";
+import {useNavigate} from "react-router-dom";
 
 
 const Container = styled.div`
@@ -71,15 +74,36 @@ const ShapeBottom = styled.img`
 `;
 
 const Login = () => {
+  const [nickname, setNickname] = useState('');
+  const [password, setPassword] = useState('');
+  const setUserID = useSetRecoilState(userIDState);
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    const userID = `${nickname}#${password}`;
+    setUserID(userID);
+    navigate('/main');
+  };
+
   return (
     <Container>
       <FormContainer>
         <ShapeTop src='/img/top-orange.svg' alt="top shape" />
         <Title>서비스명..</Title>
-        <Input type="text" placeholder="닉네임" />
-        <Input type="password" placeholder="비밀번호" />
+        <Input
+            type="text"
+            placeholder="닉네임"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+        />
+        <Input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+        />
         <SignupButtonContainer>
-          <Button>로그인</Button>
+          <Button onClick={handleLogin}>로그인</Button>
         </SignupButtonContainer>
         <ShapeBottom src='/img/bottom-orange.svg' alt="bottom shape" />
       </FormContainer>

@@ -3,11 +3,9 @@
   text-align: center;
   align-items: center;
   width: 100%;
-  max-width: 500px; /* 최대 너비를 설정하여 너무 커지지 않게 합니다 */
+  max-width: 1000px; /* 최대 너비를 설정하여 너무 커지지 않게 합니다 */
   margin: 0 auto; /* 중앙 정렬 */
   padding: 0 10px; /* 좌우 패딩 추가 */
-  background-color: white;
-  height: 100vh;
 }
 
 .App-logo {
