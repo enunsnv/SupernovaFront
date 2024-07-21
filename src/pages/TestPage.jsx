@@ -6,6 +6,7 @@ import CustomButton from "../components/.PublicComp/CustomButton";
 import CustomInput from "../components/.PublicComp/CustomInput";
 import PetSelect from "../components/pet/PetSelect";
 import { Button } from '@mui/material';
+import TimerStop from "../components/timer/TimerStop";
 
 function TestPage() {
     const [modalOpen, setModalOpen] = useState(false);
@@ -17,7 +18,7 @@ function TestPage() {
             <Button variant="contained" color="primary" onClick={handleOpen}>
                 Open Pet Select Modal
             </Button>
-            <PetSelect open={modalOpen} onClose={handleClose} />
+            <TimerStop open={modalOpen} onClose={handleClose} />
         </div>
     );
 }
