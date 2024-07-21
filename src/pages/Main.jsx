@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userIDState } from '../atom/atom';
@@ -36,14 +36,8 @@ const ToggleButton = styled.button`
 `;
 
 const SemesterInfo = styled.div`
-    font-size: 17px;
-    font-weight: 500;
-    color: #000;
-    position: absolute;
-    right: 20px;
+    display: flex;
     flex-direction: row;
-`;
-const Semester = styled.div`
     font-size: 17px;
     font-weight: 500;
     color: #000;
@@ -120,11 +114,52 @@ const Footer = styled.div`
     background-color: #ffe680;
 `;
 
+const ProgressBarContainer = styled.div`
+    width: 150px;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 5px 0 0 0;
+`;
+
+const ProgressBarFill = styled.div`
+    height: 100%;
+    width: ${(props) => props.width}%;
+    background-color: #F27200;
+    transition: width 0.5s ease-in-out;
+`;
+
+const ProgressBarWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+`;
+
+const LevelText = styled.div`
+    font-size: 12px;
+    font-weight: 500;
+    color: #555555;
+    margin-right: 120px;
+    
+`;
+
+const ProgressBar = ({ progress }) => (
+    <ProgressBarWrapper>
+        <LevelText>Lv. {Math.floor(progress / 10)}</LevelText>
+        <ProgressBarContainer>
+            <ProgressBarFill width={progress} />
+        </ProgressBarContainer>
+    </ProgressBarWrapper>
+);
+
 function Main() {
     const [userID, setUserID] = useRecoilState(userIDState);
     const navigate = useNavigate();
     const [isLinkInputModalOpen, setIsLinkInputModalOpen] = useState(false);
     const [isPetSelectOpen, setIsPetSelectOpen] = useState(false);
+    const [progress, setProgress] = useState(40); // 초기 진행 상황 값을 설정
     const [selectedPet, setSelectedPet] = useState(null);
 
     const handleSuccess = (selectedPetIndex) => {
@@ -143,7 +178,8 @@ function Main() {
             <Header>
                 <ToggleButton onClick={() => setIsLinkInputModalOpen(true)} />
                 <SemesterInfo>
-                    <Semester>0000</Semester>학년도 <Semester>0</Semester>학기
+                    <div>0000학년도</div>
+                    <div>0학기</div>
                 </SemesterInfo>
             </Header>
 
@@ -159,6 +195,7 @@ function Main() {
                         지난 주 대비 N%
                     </InfoText3>
                 </Info>
+                <ProgressBar progress={progress} />
                 <Placeholder>
                     <PlaceholderText>펫 보이는 곳..</PlaceholderText>
                 </Placeholder>
