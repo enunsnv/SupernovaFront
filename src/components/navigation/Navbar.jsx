@@ -38,8 +38,8 @@ function Navbar() {
 
   return (
     <Footer>
-      <HomeIcon onClick={() => navigate('/home')} />
-      <ClockIcon onClick={() => navigate('/clock')} />
+      <HomeIcon onClick={() => navigate('/main')} />
+      <ClockIcon onClick={() => navigate('/timer')} />
       <CodepenIcon onClick={() => navigate('/codepen')} />
       <CommandIcon onClick={() => navigate('/command')} />
     </Footer>
