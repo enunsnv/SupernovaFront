@@ -6,6 +6,7 @@ import AIWS from "./pages/AIWS";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
 import Timer from "./pages/Timer";
+import LinkInput from './components/TimeTable/LinkInput';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/main" element={<Main/>} />
             <Route path="/timer" element={<Timer/>} />
             <Route path="/aiws" element={<AIWS/>} />
+            <Route path="/link" element={<LinkInput/>} />
         </Routes>
         </Router>
     </div>

@@ -22,7 +22,7 @@ const FormContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   font-size: 24px;
   color: #333;
   margin: 100px 0;
