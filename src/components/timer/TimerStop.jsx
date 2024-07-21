@@ -60,6 +60,7 @@ const Button = styled.button`
 const TimerStop = ({ open, onClose, setIsRunning, setTime }) => {
     const userID = useRecoilState(userIDState);
     const [selectCategoryOpen, setSelectCategoryOpen] = useState(false);
+    const [earnedExp, setEarnedExp] = useState(0);
 
     const StopTimer = async () => {
         const userID = localStorage.getItem('userID');
@@ -70,7 +71,7 @@ const TimerStop = ({ open, onClose, setIsRunning, setTime }) => {
             setTime(0);
             setIsRunning(false);
             console.log(response);
-
+            setEarnedExp(response.data.added_ptg);
             onClose();
         } catch (error) {
             console.log(error);
@@ -96,7 +97,7 @@ const TimerStop = ({ open, onClose, setIsRunning, setTime }) => {
                     </ButtonContainer>
                 </Container>
             </Modal>
-            <SelectCategory open={selectCategoryOpen} onClose={() => setSelectCategoryOpen(false)} />
+            <SelectCategory open={selectCategoryOpen} onClose={() => setSelectCategoryOpen(false)} earnedEXP={earnedExp} />
         </>
     );
 };

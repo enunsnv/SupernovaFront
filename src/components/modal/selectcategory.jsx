@@ -62,7 +62,7 @@ const Button = styled.button`
     }
 `;
 
-const SelectCategory = ({ open, onClose }) => {
+const SelectCategory = ({ open, onClose, earnedEXP }) => {
     const [selected, setSelected] = useState([]);
     const [confirmationOpen, setConfirmationOpen] = useState(false);
 
