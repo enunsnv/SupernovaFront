@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {userIDState} from "../atom/atom";
 import {useSetRecoilState} from "recoil";
 import {useNavigate} from "react-router-dom";
+import api from '../axios';
 
 const AppContainer = styled.div`
     display: flex;
@@ -83,9 +84,19 @@ const Login = () => {
   const setUserID = useSetRecoilState(userIDState);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin  = async () => {
     const userID = `${nickname}@${password}`;
     setUserID(userID);
+        
+        try {
+          const response = await api.get(`/main/?userId=${userID}`, {
+            userId: userID
+          });
+    
+          } catch (error) {
+            console.log(error); 
+          }
+
     navigate('/main');
   };
 

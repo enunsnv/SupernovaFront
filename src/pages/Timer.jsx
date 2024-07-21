@@ -156,7 +156,22 @@ function Timer() {
     return `${h}:${m}:${s}`;
   };
 
-  const handlePlay = () => setIsRunning(true);
+  const handlePlay = async () => {
+    const userID = localStorage.getItem('userID')
+    
+    try {
+      const response = await api.post('/start_timer/', {
+        userId: userID
+      });
+        setIsRunning(true);
+
+      } catch (error) {
+        console.log(error); 
+      }
+    }
+
+
+
   const handlePause = () => setIsRunning(false);
   const handleQuit = () => setShowModal(true);
 
