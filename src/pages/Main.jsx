@@ -7,6 +7,7 @@ import axios from 'axios';
 import LinkInputModal from '../components/TimeTable/LinkInput';
 import PetSelect from '../components/pet/PetSelect';
 import Navbar from '../components/navigation/Navbar';
+import ViewSchedule from '../components/modal/viewschedule';
 
 const AppContainer = styled.div`
     display: flex;
@@ -15,14 +16,13 @@ const AppContainer = styled.div`
     height: 95vh;
     justify-content: space-between;
     background-color: #fff;
-    
 `;
 
 const Header = styled.div`
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
     padding: 10px;
     position: relative;
 `;
@@ -39,12 +39,28 @@ const ToggleButton = styled.button`
 
 const SemesterInfo = styled.div`
     display: flex;
-    flex-direction: row;
-    font-size: 17px;
+    flex-direction: column;
+    font-size: 20px;
     font-weight: 500;
     color: #000;
     position: absolute;
     right: 20px;
+    text-align: right;
+    margin-top: 30px;
+`;
+
+const ScheduleLink = styled.p`
+    margin-top: 10px;
+    padding: 0;
+    font-size: 14px;
+    color: gray;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: none;
+    &:hover {
+        color: #000;
+    }
 `;
 
 const Content = styled.div`
@@ -62,7 +78,7 @@ const Info = styled.div`
     padding: 0 20px;
     text-align: left;
     margin-left: 80px;
-    margin-top: 100px;
+    margin-top: 50px;
 `;
 
 const InfoText1 = styled.p`
@@ -160,6 +176,7 @@ function Main() {
     const navigate = useNavigate();
     const [isLinkInputModalOpen, setIsLinkInputModalOpen] = useState(false);
     const [isPetSelectOpen, setIsPetSelectOpen] = useState(false);
+    const [isScheduleOpen, setIsScheduleOpen] = useState(false);
     const [progress, setProgress] = useState(40); // 초기 진행 상황 값을 설정
 
     const handleSuccess = () => {
@@ -181,9 +198,15 @@ function Main() {
                     onClose={() => setIsPetSelectOpen(false)}
                     onSuccess={handleSuccess}
                 />
+                <ViewSchedule
+                    open={isScheduleOpen}
+                    onClose={() => setIsScheduleOpen(false)}
+                />
                 <SemesterInfo>
-                    <div>0000학년도</div>
-                    <div>0학기</div>
+                    <div>0000학년도 0학기</div>
+                    <ScheduleLink onClick={() => setIsScheduleOpen(true)}>
+                        이번학기 시간표 확인하기
+                    </ScheduleLink>
                 </SemesterInfo>
             </Header>
             <Content>
@@ -193,7 +216,6 @@ function Main() {
                     </InfoText1>
                     <InfoText2>
                         <HighlightedText>N시간 N분</HighlightedText> 을 활용했어요
-
                     </InfoText2>
                     <InfoText3>
                         지난 주 대비 N%
@@ -204,7 +226,6 @@ function Main() {
                     <PlaceholderText>펫 보이는 곳..</PlaceholderText>
                 </Placeholder>
             </Content>
-
             <Footer>
                 <Navbar />
             </Footer>
