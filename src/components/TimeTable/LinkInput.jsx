@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Modal } from '@mui/material';
-import PetSelect from '../pet/PetSelect';
 import api from "../../axios";
 import { userIDState } from "../../atom/atom";
-import {useRecoilValue} from "recoil";
+import { useRecoilValue } from "recoil";
 
 const Container = styled.div`
     display: flex;
@@ -58,67 +57,57 @@ const Button = styled.button`
     }
 `;
 
-const LinkInputModal = ({ open, onClose, onOpenPetSelect, selectedPet }) => {
+const LinkInputModal = ({ open, onClose, onOpenPetSelect, isPetSelected }) => {
     const [link, setLink] = useState('');
     const userID = useRecoilValue(userIDState);
-
-    useEffect(() => {
-        console.log(userID);
-    }, [userID]);
 
     const handleChange = (event) => {
         setLink(event.target.value);
     };
 
-    const handleSubmit = async (type) => {
-        if (type === 'select') {
-            onOpenPetSelect(); // PetSelect 모달을 여는 콜백 호출
-        } else if (type === 'submit') {
-            console.log('Submitted link:', link);
-            console.log('Selected pet:', selectedPet);
-            try {
-                const response = await api.post('/loadtimetable/', {
-                    userId: userID,
-                    path: link,
-                });
-                onClose();
-            }catch (error) {
-                console.log(error);
-            }
+    const handleSubmit = async () => {
+        try {
+            const response = await api.post('/loadtimetable/', {
+                userId: userID,
+                path: link,
+            });
+            onClose();
+        } catch (error) {
+            console.log(error);
         }
     };
 
-        return (
-            <Modal
-                open={open}
-                onClose={onClose}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-            >
-                <Container>
-                    <Input
-                        type="text"
-                        placeholder="에브리타임의 시간표 링크 붙여넣기"
-                        value={link}
-                        onChange={handleChange}
-                    />
-                    <ButtonContainer>
-                        <Button
-                            onClick={() => handleSubmit('select')}
-                            disabled={selectedPet === true}
-                        >
-                            {selectedPet === true ? '펫 선택완료' : '펫 고르기'}
-                        </Button>
-
-                        <Button
-                            onClick={() => handleSubmit('submit')}
-                        >
-                            등록 완료!
-                        </Button>
-                    </ButtonContainer>
-                </Container>
-            </Modal>
-        );
-    };
+    return (
+        <Modal
+            open={open}
+            onClose={onClose}
+            aria-labelledby="modal-title"
+            aria-describedby="modal-description"
+        >
+            <Container>
+                <Input
+                    type="text"
+                    placeholder="에브리타임의 시간표 링크 붙여넣기"
+                    value={link}
+                    onChange={handleChange}
+                />
+                <ButtonContainer>
+                    <Button
+                        onClick={onOpenPetSelect}
+                        disabled={isPetSelected}
+                    >
+                        {isPetSelected ? '펫 선택완료' : '펫 고르기'}
+                    </Button>
+                    <Button
+                        onClick={handleSubmit}
+                        disabled={!link}  // Disable if the link is empty
+                    >
+                        등록 완료!
+                    </Button>
+                </ButtonContainer>
+            </Container>
+        </Modal>
+    );
+};
 
 export default LinkInputModal;

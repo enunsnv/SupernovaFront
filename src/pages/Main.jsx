@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userIDState } from '../atom/atom';
 import styled from 'styled-components';
-import axios from 'axios';
-import LinkInputModal from '../components/TimeTable/LinkInput';
-import PetSelect from '../components/pet/PetSelect';
-import Navbar from '../components/navigation/Navbar';
+import api from '../axios';
 import ViewSchedule from '../components/modal/viewschedule';
+import Navbar from '../components/navigation/Navbar';
 
 const AppContainer = styled.div`
     display: flex;
@@ -19,48 +16,62 @@ const AppContainer = styled.div`
 `;
 
 const Header = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
     position: relative;
+    width: 100%;
+    height: 100px;
 `;
 
-const ToggleButton = styled.button`
-    width: 50px;
-    height: 50px;
-    margin: 10px;
-    background: url('/img/toggle.svg') no-repeat center center;
-    background-size: cover;
-    border: none;
-    cursor: pointer;
+const ShapeLeft = styled.img`
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 350px;
+    z-index: 1;
+
+    @media (max-width: 500px) {
+        width: 100%;
+    }
+`;
+
+const ShapeRight = styled.img`
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    max-width: 350px;
+    z-index: 1;
+
+    @media (max-width: 500px) {
+        width: 100%;
+    }
 `;
 
 const SemesterInfo = styled.div`
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    font-weight: 500;
-    color: #000;
     position: absolute;
+    top: 20px;
     right: 20px;
     text-align: right;
-    margin-top: 30px;
+    z-index: 2;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000;
+
+    span {
+      font-size: 23px;
+      font-weight: 500;
+    }
 `;
 
 const ScheduleLink = styled.p`
     margin-top: 10px;
-    padding: 0;
     font-size: 14px;
-    color: gray;
-    border: none;
-    border-radius: 5px;
+    color: #555555;
     cursor: pointer;
-    background-color: none;
     &:hover {
         color: #000;
     }
+    
 `;
 
 const Content = styled.div`
@@ -81,9 +92,9 @@ const Info = styled.div`
     margin-top: 50px;
 `;
 
-const InfoText1 = styled.p`
+const InfoText1 = styled.div`
     color: #000;
-    font-size: 17px;
+    font-size: 16px;
     text-align: left;
     margin-bottom: 4px;
 `;
@@ -117,7 +128,7 @@ const Placeholder = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 30px 0px 116px;
+    margin: 30px 0 116px;
     border-radius: 10px;
 `;
 
@@ -172,58 +183,51 @@ const ProgressBar = ({ progress }) => (
 
 function Main() {
     const [userID, setUserID] = useRecoilState(userIDState);
-    const navigate = useNavigate();
-    const [isLinkInputModalOpen, setIsLinkInputModalOpen] = useState(false);
-    const [isPetSelectOpen, setIsPetSelectOpen] = useState(false);
+    const [progress, setProgress] = useState(40); // Initial progress value
+    const [data, setData] = useState('');
     const [isScheduleOpen, setIsScheduleOpen] = useState(false);
-    const [progress, setProgress] = useState(40); // 초기 진행 상황 값을 설정
-    const [isPetSelected, setIsPetSelected] = useState(false);
 
-    const handleSuccess = () => {
-        setIsPetSelectOpen(false);
-        setIsLinkInputModalOpen(true);
-        setIsPetSelected(true);
+    const LoadData = async () => {
+        const userID = localStorage.getItem('userID');
+        
+        try {
+            const response = await api.get(`/main/?userId=${userID}`);
+            setData(response.data);
+        } catch (error) {
+            console.log(error); 
+        }
     };
-    const openselect = () => {
-        setIsPetSelectOpen(true);
-        setIsLinkInputModalOpen(false);
-    }
+
+    useEffect(() => {
+        LoadData();
+    }, []);
+
     return (
         <AppContainer>
             <Header>
-                <ToggleButton onClick={() => setIsLinkInputModalOpen(true)} />
-                <LinkInputModal
-                    open={isLinkInputModalOpen}
-                    onClose={() => setIsLinkInputModalOpen(false)}
-                    onOpenPetSelect={openselect}
-                    isPetSelected={isPetSelected}
-                />
-                <PetSelect
-                    open={isPetSelectOpen}
-                    onClose={() => setIsPetSelectOpen(false)}
-                    onSuccess={handleSuccess}
-                />
-                <ViewSchedule
-                    open={isScheduleOpen}
-                    onClose={() => setIsScheduleOpen(false)}
-                />
+                <ShapeLeft src='/img/main-left-orange.svg' alt="top shape" />
+                <ShapeRight src='/img/main-right-orange.svg' alt="top shape" />
                 <SemesterInfo>
-                    <div>0000학년도 0학기</div>
+                    <div><span>{data.year_info}</span> 학년도 <span>{data.semester_info}</span> 학기</div>
                     <ScheduleLink onClick={() => setIsScheduleOpen(true)}>
                         이번학기 시간표 확인하기
                     </ScheduleLink>
                 </SemesterInfo>
             </Header>
+            <ViewSchedule
+                open={isScheduleOpen}
+                onClose={() => setIsScheduleOpen(false)}
+            />
             <Content>
                 <Info>
                     <InfoText1>
-                        이번 주 공강 N시간 N분 중
+                        이번 주 공강 {data.empty_time}시간 {data.empty_time}분 중
                     </InfoText1>
                     <InfoText2>
-                        <HighlightedText>N시간 N분</HighlightedText> 을 활용했어요
+                        <HighlightedText>{data.timer_sum}시간 {data.timer_sum}분</HighlightedText> 을 활용했어요
                     </InfoText2>
                     <InfoText3>
-                        지난 주 대비 N%
+                        이번 주 공강의 {data.timer_sum}/{data.empty_time} * 100 % 동시와 함께 하는 중!
                     </InfoText3>
                 </Info>
                 <ProgressBar progress={progress} />

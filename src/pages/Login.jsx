@@ -4,6 +4,8 @@ import {userIDState} from "../atom/atom";
 import {useSetRecoilState} from "recoil";
 import {useNavigate} from "react-router-dom";
 import api from '../axios';
+import LinkInputModal from '../components/TimeTable/LinkInput';
+import PetSelect from '../components/pet/PetSelect';
 
 const AppContainer = styled.div`
     display: flex;
@@ -83,26 +85,62 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const setUserID = useSetRecoilState(userIDState);
   const navigate = useNavigate();
+  const [isLinkInputModalOpen, setIsLinkInputModalOpen] = useState(false);
+  const [isPetSelectOpen, setIsPetSelectOpen] = useState(false);
+  const [isPetSelected, setIsPetSelected] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(false); // Add state for is_new_user
+
+  const handleSuccess = () => {
+    setIsPetSelectOpen(false);
+    setIsLinkInputModalOpen(true);
+    setIsPetSelected(true);
+   };
+
+  const openselect = () => {
+    setIsPetSelectOpen(true);
+    setIsLinkInputModalOpen(false);
+
+  };
 
   const handleLogin  = async () => {
     const userID = `${nickname}@${password}`;
     setUserID(userID);
         
-        try {
-          const response = await api.get(`/main/?userId=${userID}`, {
+    try {
+      const response = await api.get(`/main/?userId=${userID}`);
+      const data = response.data;
 
-          });
-    
-          } catch (error) {
-            console.log(error); 
-          }
+      if (data.is_new_user) {
+        setIsNewUser(true);
+        setIsLinkInputModalOpen(true);
+        setIsPetSelectOpen(true);
+      } else {
+        setIsNewUser(false);
+      }
+    } catch (error) {
+      console.log(error); 
+    }
 
-    navigate('/main');
   };
 
   return (
     <AppContainer>
       <FormContainer>
+        <LinkInputModal
+          open={isLinkInputModalOpen}
+          onClose={() => {
+            setIsLinkInputModalOpen(false);
+            navigate('/main');
+        }}
+          onOpenPetSelect={openselect}
+          isPetSelected={isPetSelected}
+        />
+        <PetSelect
+          open={isPetSelectOpen}
+          onClose={() => setIsPetSelectOpen(false)}
+          onSuccess={handleSuccess}
+        />
+
         <ShapeTop src='/img/top-orange.svg' alt="top shape" />
         <Title>서비스명..</Title>
         <Input
@@ -118,7 +156,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
         />
         <SignupButtonContainer>
-          <Button  onClick={handleLogin}>로그인</Button>
+          <Button onClick={handleLogin}>로그인</Button>
         </SignupButtonContainer>
         <ShapeBottom src='/img/bottom-orange.svg' alt="bottom shape" />
       </FormContainer>
