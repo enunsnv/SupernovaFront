@@ -1,15 +1,16 @@
 import React from 'react';
 import './CustomInput.css';
-import Form from 'react-bootstrap/Form';
 
-function CustomInput({label, placeholder}) {
+function CustomInput({label, placeholder, value, onChange}) {
     return (
         <div className="InputWrapper">
-            <Form.Label className="input-form-label">{label}</Form.Label>
-            <Form.Control
-                type="input"
+            <label className="input-form-label">{label}</label>
+            <input
+                type="text"
                 className="input-form-input"
                 placeholder={placeholder}
+                value={value}
+                onChange={onChange}
             />
         </div>
     );
