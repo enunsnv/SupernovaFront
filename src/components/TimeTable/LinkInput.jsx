@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import SelectContainer from '../monster/SelectContainer';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 160px;
-  width: 310px;
+  height: auto;
+  width: 100%;
+  max-width: 400px;
   background-color: white;
   border: 1px solid #F27200;
   border-radius: 15px;
-  padding: 0 5px;
+  padding: 20px;
+  margin: 10px;
+  box-sizing: border-box;
 `;
 
 const Input = styled.input`
-  width: 80%;
-  max-width: 400px;
-  padding: 18px;
+  width: 90%;
+  padding: 15px;
   margin: 10px 0;
   border: 0px solid #ccc;
   border-radius: 10px;
@@ -27,14 +30,14 @@ const Input = styled.input`
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 110px;
-  padding-bottom: 10px;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const Button = styled.button`
-  max-width: 450px;
-  padding: 15px 20px;
-  margin-top: 10px;
+  flex: 1;
+  padding: 10px 0px;
+  margin: 10px;
   border: 0px solid #4CAF50;
   border-radius: 10px;
   background-color: #FFDA69;
@@ -47,47 +50,42 @@ const Button = styled.button`
   }
 `;
 
-const Footer = styled.footer`
-  margin-top: 20px;
-  font-size: 14px;
-  color: #777;
-
-  a {
-    color: #4CAF50;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
-
 const LinkInput = () => {
   const [link, setLink] = useState('');
+  const [isSelectContainerOpen, setIsSelectContainerOpen] = useState(false);
 
   const handleChange = (event) => {
     setLink(event.target.value);
   };
 
-  const handleSubmit = () => {
-    console.log('Submitted link:', link);
-    // 여기에 링크를 제출하는 로직 추가 !!
+  const handleSubmit = (type) => {
+    if (type === 'select') {
+      setIsSelectContainerOpen(true);
+    } else if (type === 'submit') {
+      console.log('Submitted link:', link);
+      // 여기에 링크를 제출하는 로직 추가 !!
+    }
   };
 
   return (
-    <Container>
-      <Input
-        type="text"
-        placeholder="에브리타임의 시간표 링크 붙여넣기"
-        value={link}
-        onChange={handleChange}
-      />
-      <ButtonContainer>
-        <Button onClick={handleSubmit}>펫 선택</Button>
-        <Button onClick={handleSubmit}>등록 완료!</Button>
-      </ButtonContainer>
-     
-    </Container>
+    <>
+      {isSelectContainerOpen ? (
+        <SelectContainer />
+      ) : (
+        <Container>
+          <Input
+            type="text"
+            placeholder="에브리타임의 시간표 링크 붙여넣기"
+            value={link}
+            onChange={handleChange}
+          />
+          <ButtonContainer>
+            <Button onClick={() => handleSubmit('select')}>펫 고르기</Button>
+            <Button onClick={() => handleSubmit('submit')}>등록 완료!</Button>
+          </ButtonContainer>
+        </Container>
+      )}
+    </>
   );
 };
 

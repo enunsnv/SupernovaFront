@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userIDState } from '../atom/atom';
 import styled from 'styled-components';
-//import api from '../axios';
+import LinkInput from '../components/TimeTable/LinkInput';
+import Navbar from '../components/navigation/Navbar';
 
 const AppContainer = styled.div`
   display: flex;
@@ -19,13 +20,17 @@ const Header = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 10px;
+  width: 100vw;
+  position: relative; // Add relative positioning
 `;
 
-const YellowIcon = styled.div`
+const ToggleButton = styled.button`
   width: 30px;
   height: 30px;
-  background-color: #ffec99;
-  border-radius: 50%;
+  background: url('/img/toggle.svg') no-repeat center center;
+  background-size: cover;
+  border: none;
+  cursor: pointer;
 `;
 
 const Content = styled.div`
@@ -57,6 +62,7 @@ const Footer = styled.div`
   justify-content: space-around;
   padding: 10px 0;
   background-color: #ffe680;
+  
 `;
 
 const Icon = styled.div`
@@ -84,6 +90,7 @@ const CommandIcon = styled(Icon)`
 function Main() {
   const [userID, setUserID] = useRecoilState(userIDState);
   const navigate = useNavigate();
+  const [showLinkInput, setShowLinkInput] = useState(false);
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -101,7 +108,8 @@ function Main() {
   return (
     <AppContainer>
       <Header>
-        <YellowIcon />
+        <ToggleButton onClick={() => setShowLinkInput(!showLinkInput)} />
+        {showLinkInput && <LinkInput />}
       </Header>
       <Content>
         <p>이번 주 n 시간 중~</p>
@@ -110,10 +118,7 @@ function Main() {
         </Placeholder>
       </Content>
       <Footer>
-        <HomeIcon onClick={() => navigate('/home')} />
-        <ClockIcon onClick={() => navigate('/clock')} />
-        <CodepenIcon onClick={() => navigate('/codepen')} />
-        <CommandIcon onClick={() => navigate('/command')} />
+        <Navbar/>
       </Footer>
     </AppContainer>
   );
