@@ -1,5 +1,11 @@
+/* 기본 스타일 */
 .App {
   text-align: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px; /* 최대 너비를 설정하여 너무 커지지 않게 합니다 */
+  margin: 0 auto; /* 중앙 정렬 */
+  padding: 0 10px; /* 좌우 패딩 추가 */
 }
 
 .App-logo {
@@ -34,5 +40,27 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* 모바일 및 작은 화면에 대한 스타일 */
+@media (max-width: 768px) {
+  .App {
+    width: 100%;
+    padding: 0 5px; /* 모바일 화면에서 더 좁은 패딩 */
+  }
+
+  .App-header {
+    font-size: calc(8px + 2vmin); /* 모바일 화면에서 폰트 사이즈 줄이기 */
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header {
+    font-size: calc(6px + 2vmin); /* 작은 화면에서 폰트 사이즈 더 줄이기 */
+  }
+
+  .App-logo {
+    height: 30vmin; /* 작은 화면에서 로고 사이즈 줄이기 */
   }
 }
