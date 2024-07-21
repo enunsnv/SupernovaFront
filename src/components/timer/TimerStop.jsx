@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Modal } from '@mui/material';
 import { userIDState } from "../../atom/atom";
-import {useRecoilState} from "recoil";
+import { useRecoilState } from "recoil";
+import SelectCategory from '../modal/selectcategory';
 import api from "../../axios";
 
 const Container = styled.div`
@@ -55,40 +56,46 @@ const Button = styled.button`
         background-color: ${({ disabled }) => (disabled ? '#ccc' : '#F2AB00')};
     }
 `;
-const TimerStop = ({ open, onClose}) => {
+
+const TimerStop = ({ open, onClose }) => {
     const [userID] = useRecoilState(userIDState);
+    const [selectCategoryOpen, setSelectCategoryOpen] = useState(false);
+
     const StopTimer = async () => {
-/*
+        // Uncomment and update the code below to integrate with your API
+        /*
         try {
             const response = await api.post('/stoptimer', {
                 userId: userID,
             });
             console.log(response);
             onClose();
-        }catch (error) {
+        } catch (error) {
             console.log(error);
         }
-*/
-        onClose();
-    }
-
+        */
+        setSelectCategoryOpen(true);
+    };
 
     return (
-        <Modal
-            open={open}
-            onClose={onClose}
-            aria-labelledby="modal-title"
-            aria-describedby="modal-description"
-        >
-            <Container>
-                <TextContainer>오늘의 공강 타이머를 종료할까요?</TextContainer>
+        <>
+            <Modal
+                open={open}
+                onClose={onClose}
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
+            >
+                <Container>
+                    <TextContainer>오늘의 공강 타이머를 종료할까요?</TextContainer>
 
-                <ButtonContainer>
-                    <Button onClick={StopTimer}>네</Button>
-                    <Button onClick={onClose}>아니요</Button>
-                </ButtonContainer>
-            </Container>
-        </Modal>
+                    <ButtonContainer>
+                        <Button onClick={StopTimer}>네</Button>
+                        <Button onClick={onClose}>아니요</Button>
+                    </ButtonContainer>
+                </Container>
+            </Modal>
+            <SelectCategory open={selectCategoryOpen} onClose={() => setSelectCategoryOpen(false)} />
+        </>
     );
 };
 
