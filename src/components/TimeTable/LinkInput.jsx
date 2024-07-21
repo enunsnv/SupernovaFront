@@ -55,25 +55,16 @@ const Button = styled.button`
     }
 `;
 
-const LinkInputModal = ({ open, onClose, onSuccess }) => {
+const LinkInputModal = ({ open, onClose, onOpenPetSelect, selectedPet }) => {
     const [link, setLink] = useState('');
-    const [isPetSelectOpen, setIsPetSelectOpen] = useState(false);
-    const [selectedPet, setSelectedPet] = useState(null);
 
     const handleChange = (event) => {
         setLink(event.target.value);
     };
 
-    const handleSelectPet = (pet) => {
-        setSelectedPet(pet);
-        setIsPetSelectOpen(false);
-        onClose(); // Close the LinkInput modal
-    };
-
     const handleSubmit = (type) => {
         if (type === 'select') {
-            setIsPetSelectOpen(true);
-            onClose(); // Close the LinkInput modal when opening PetSelect
+            onOpenPetSelect(); // PetSelect 모달을 여는 콜백 호출
         } else if (type === 'submit') {
             console.log('Submitted link:', link);
             console.log('Selected pet:', selectedPet);
@@ -82,42 +73,30 @@ const LinkInputModal = ({ open, onClose, onSuccess }) => {
     };
 
     return (
-        <>
-            <Modal
-                open={open}
-                onClose={onClose}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-            >
-                <Container>
-                    <Input
-                        type="text"
-                        placeholder="에브리타임의 시간표 링크 붙여넣기"
-                        value={link}
-                        onChange={handleChange}
-                    />
-                    <ButtonContainer>
-                        <Button
-                            onClick={() => handleSubmit('select')}
-                            disabled={selectedPet !== null}
-                        >
-                            {selectedPet !== null ? '펫 선택완료' : '펫 고르기'}
-                        </Button>
-                        <Button onClick={() => handleSubmit('submit')}>등록 완료!</Button>
-                    </ButtonContainer>
-                </Container>
-            </Modal>
-
-            <PetSelect
-                open={isPetSelectOpen}
-                onClose={() => setIsPetSelectOpen(false)}
-                onSuccess={() => {
-                    setIsPetSelectOpen(false);
-                    setSelectedPet(true);
-                    onSuccess(); // Notify parent to reopen LinkInput modal
-                }}
-            />
-        </>
+        <Modal
+            open={open}
+            onClose={onClose}
+            aria-labelledby="modal-title"
+            aria-describedby="modal-description"
+        >
+            <Container>
+                <Input
+                    type="text"
+                    placeholder="에브리타임의 시간표 링크 붙여넣기"
+                    value={link}
+                    onChange={handleChange}
+                />
+                <ButtonContainer>
+                    <Button
+                        onClick={() => handleSubmit('select')}
+                        disabled={selectedPet !== null}
+                    >
+                        {selectedPet !== null ? '펫 선택완료' : '펫 고르기'}
+                    </Button>
+                    <Button onClick={() => handleSubmit('submit')}>등록 완료!</Button>
+                </ButtonContainer>
+            </Container>
+        </Modal>
     );
 };
 
