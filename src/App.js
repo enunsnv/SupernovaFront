@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import Main from "./pages/Main";
 import Timer from "./pages/Timer";
 import LinkInput from './components/TimeTable/LinkInput';
-
+import TestPage from "./pages/TestPage";
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
             <Route path="/timer" element={<Timer/>} />
             <Route path="/aiws" element={<AIWS/>} />
             <Route path="/link" element={<LinkInput/>} />
+            <Route path="/test" element={<TestPage/>} />
         </Routes>
         </Router>
     </div>
