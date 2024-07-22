@@ -115,8 +115,8 @@ const HeaderButton = styled.button`
   right: 20px;
   padding: 10px 20px;
   font-size: 14px;
-  background-color: #ffa500;
-  color: white;
+  background-color: #F2AB00;
+  color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;

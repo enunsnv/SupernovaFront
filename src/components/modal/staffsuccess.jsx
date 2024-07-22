@@ -31,10 +31,10 @@ const ConfirmationMessage = styled.div`
 
 const ConfirmButton = styled.button`
   padding: 10px 20px;
-  background-color: #ffa500;
+  background-color: #FFDA69;
   border: none;
   border-radius: 5px;
-  color: white;
+  color: black;
   font-size: 14px;
   cursor: pointer;
 `;
