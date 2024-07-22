@@ -127,7 +127,7 @@ const Placeholder = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 30px 0 116px;
+    margin: 30px 0 30px;
     border-radius: 10px;
 `;
 
