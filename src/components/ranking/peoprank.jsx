@@ -1,69 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Modal } from '@mui/material';
+import axios from 'axios';
 
 const Container = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     height: auto;
-    width: 95%;
+    width: 100%;
+    max-width: 380px;
     background-color: white;
     border: 1px solid #F27200;
     border-radius: 15px;
     padding: 20px;
     margin: 10px;
     box-sizing: border-box;
+    overflow-x: auto;
+    scrollbar-width: none;
     top: 50%;
     left: 50%;
 `;
 
-const Title = styled.div`
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-`;
-
-const SubTitle = styled.div`
-    font-size: 14px;
-    color: #555555;
-    margin-bottom: 20px;
-`;
-
-const CategoryContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 10px;
-    width: 100%;
-    height: 100vw;
-    max-height: 300px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-`;
-
-const Button = styled.button`
-    padding: 10px 20px;
-    border: 0px solid #4CAF50;
+const Item = styled.div`
+    background: #FFD700;
+    padding: 15px 20px; /* 좌우 패딩을 늘림 */
     border-radius: 10px;
-    background-color: ${({ disabled }) => (disabled ? '#ccc' : '#FFDA69')};
-    color: black;
-    font-size: 14px;
-    cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-    font-weight: 500;
-    &:hover {
-        background-color: ${({ disabled }) => (disabled ? '#ccc' : '#F2AB00')};
-    }
+    margin: 0 9px; /* 좌우 마진을 늘림 */
+    flex-basis: 150px; /* 기본 너비 설정 */
+    text-align: center;
 `;
 
 const PeopRank = () => {
+    const [top10, setTop10] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/top10/');
+                setTop10(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const formatUserId = (userId) => {
+        const namePart = userId.split('@')[0];
+        return namePart.length > 3 ? `${namePart.slice(0, 3)}` : namePart;
+    };
 
     return (
         <Container>
-            <div style={{ background: '#FFD700', padding: '10px', borderRadius: '10px', margin: '0 10px' }}>운동 #0001</div>
-            <div style={{ background: '#FFD700', padding: '10px', borderRadius: '10px', margin: '0 10px' }}>운동 #0001</div>
-            <div style={{ background: '#FFD700', padding: '10px', borderRadius: '10px', margin: '0 10px' }}>운동 #0001</div>
+            {top10.map((item, index) => (
+                <Item key={index}>
+                    {formatUserId(item.user_id)} {item.pet_ptg.toFixed(2)}%
+                </Item>
+            ))}
         </Container>
     );
 };
