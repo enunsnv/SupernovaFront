@@ -94,9 +94,15 @@ const SelectCategory = ({ open, onClose, earnedEXP }) => {
         });
     };
 
-    const handleConfirm = () => {
-        onClose(); // Close SelectCategory modal
-        setConfirmationOpen(true); // Open ConfirmationModal
+    const handleConfirm = async () => {
+        try {
+            const categoryString = selected.map(item => item.alt).join('|');
+            await api.patch('/category/', { category: categoryString });
+            onClose(); // Close SelectCategory modal
+            setConfirmationOpen(true); // Open ConfirmationModal
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
