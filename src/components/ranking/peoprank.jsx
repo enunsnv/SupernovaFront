@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import api from "../../axios";
 
 const Container = styled.div`
     display: flex;
@@ -37,7 +38,7 @@ const PeopRank = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/top10/');
+                const response = await api.get('/top10/');
                 setTop10(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
