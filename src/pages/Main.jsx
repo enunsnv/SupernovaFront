@@ -175,7 +175,6 @@ const LevelText = styled.div`
 `;
 
 const ProgressBar = ({ progress }) => (
-    
     <ProgressBarWrapper>
         <LevelText>Lv. {Math.floor(progress / 10) + 1}</LevelText>
         <ProgressBarContainer>
@@ -186,7 +185,7 @@ const ProgressBar = ({ progress }) => (
 
 function Main() {
     const [userID, setUserID] = useRecoilState(userIDState);
-    const [progress, setProgress] = useState(0); // Initial progress value
+    const [progress, setProgress] = useState(0);
     const [data, setData] = useState('');
     const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
@@ -196,6 +195,12 @@ function Main() {
         try {
             const response = await api.get(`/main/?userId=${userID}`);
             setData(response.data);
+
+            // Calculate progress value
+            const ProgressPTG = response.data.pet_ptg;
+            const ProgressVal = ProgressPTG * 10;
+
+            setProgress(ProgressVal); // Set progress after fetching data
         } catch (error) {
             console.log(error); 
         }
@@ -203,26 +208,22 @@ function Main() {
 
     useEffect(() => {
         LoadData();
-        setProgress(ProgressVal);
     }, []);
 
     const petcode = data.pet_code;
     const petImageUrl = `/pet/pet${petcode}.gif`;
 
-    const emptySeconds = data.empty_time;
+    const emptySeconds = data.empty_time || 0; // Default to 0 if not available
     const emptyMinutes = Math.floor(emptySeconds / 60);
     const emptyHours = Math.floor(emptyMinutes / 60);
     const remainingMinutes = emptyMinutes % 60;
 
-    const TimerSeconds = data.timer_sum;
+    const TimerSeconds = data.timer_sum || 0; // Default to 0 if not available
     const TimerMinute = Math.floor(TimerSeconds / 60);
     const TimerHours = Math.floor(TimerMinute / 60);
     const remainingTimerMinutes = TimerMinute % 60;
 
-    const Percent = parseFloat((TimerSeconds / emptySeconds) * 100).toFixed(2);
-    const ProgressPTG= data.pet_ptg;
-    const ProgressVal = ProgressPTG * 10;
-
+    const Percent = (emptySeconds > 0) ? parseFloat((TimerSeconds / emptySeconds) * 100).toFixed(2) : 0;
 
     return (
         <AppContainer>
@@ -256,7 +257,6 @@ function Main() {
                 <Placeholder>
                   <PlaceholderImg src={petImageUrl} alt={`Pet ${petcode}`}/>
                 </Placeholder>
-               
             </Content>
             <Footer>
                 <Navbar />
