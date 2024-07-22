@@ -44,6 +44,7 @@ const QuestionAuthor = styled.div`
   font-size: 14px;
   color: #BBBBBB;
   text-align: right;
+  margin-bottom: 20px;
 `;
 
 const InstructionsContainer = styled.div`
@@ -94,6 +95,7 @@ const AnswerTextarea = styled.textarea`
   border: 1px solid #ffa500;
   background-color: #F5F5F5;
   width: 100%;
+  margin-bottom: 40px;
 `;
 
 const SubmitButton = styled.img`
@@ -106,11 +108,28 @@ const SubmitButton = styled.img`
  
 `;
 
-function AIWS() {
+const AIWS = () => {
   const [answer, setAnswer] = useState('');
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [remainingAttempts, setRemainingAttempts] = useState(3);
+
+  const [data, setData] = useState({ content: '' });
+
+  const getQuizes = async () => {
+    try {
+      const response = await api.get('/quiz/');
+      const data = await response.data;
+      
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getQuizes();
+  }, []);
 
   const handleAnswerChange = (e) => {
     setAnswer(e.target.value);
@@ -153,31 +172,13 @@ function AIWS() {
     setIsSuccessModalOpen(false);
   };
 
-  const data = useState([]);
-
-  const getQuizes = async () => {
-    try {
-      const response = await api.get('/quiz/');
-      const data = await response.data;
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    getQuizes();
-  }, []);
-
   return (
     <AppContainer>
       <ReactSVG src={SolveTop} />
       <Section>
         <QuestionHeader>이번 주 문제!</QuestionHeader>
         <QuestionText>
-          Lorem ipsum dolor sit amet consectetur. Sollicitudin quam iaculis mauris egestas mattis.
-          Semper tincidunt elementum consequat ut purus cursus est nulla quam. Lacus consequat in
-          faucibus tincidunt mauris. Ipsum ultrices dignissim erat posuere sem enim eu?
+          {data.content}
         </QuestionText>
         <QuestionAuthor>문제 제공: 김동우 교수님</QuestionAuthor>
         <InstructionsContainer>
@@ -217,3 +218,4 @@ function AIWS() {
 }
 
 export default AIWS;
+
