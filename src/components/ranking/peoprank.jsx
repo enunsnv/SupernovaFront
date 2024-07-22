@@ -4,21 +4,19 @@ import { Modal } from '@mui/material';
 
 const Container = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     height: auto;
-    width: 85%;
+    width: 95%;
     background-color: white;
     border: 1px solid #F27200;
     border-radius: 15px;
     padding: 20px;
     margin: 10px;
     box-sizing: border-box;
-    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
 `;
 
 const Title = styled.div`
@@ -61,21 +59,12 @@ const Button = styled.button`
 
 const PeopRank = () => {
 
-    const categories = [
-        { src: '../category/image1.jpg', alt: 'Category 1' },
-        { src: '../category/image2.jpg', alt: 'Category 2' },
-        { src: '../category/image3.jpg', alt: 'Category 3' },
-        { src: '../category/image4.jpg', alt: 'Category 4' },
-        { src: '../category/image5.jpg', alt: 'Category 5' },
-        { src: '../category/image6.jpg', alt: 'Category 6' },
-    ];
-
     return (
-        <>
-            <Title>가장 많은 활동</Title>
-            <Container>
-            </Container>
-        </>
+        <Container>
+            <div style={{ background: '#FFD700', padding: '10px', borderRadius: '10px', margin: '0 10px' }}>운동 #0001</div>
+            <div style={{ background: '#FFD700', padding: '10px', borderRadius: '10px', margin: '0 10px' }}>운동 #0001</div>
+            <div style={{ background: '#FFD700', padding: '10px', borderRadius: '10px', margin: '0 10px' }}>운동 #0001</div>
+        </Container>
     );
 };
 

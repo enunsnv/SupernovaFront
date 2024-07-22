@@ -9,6 +9,7 @@ import Timer from './pages/Timer';
 import LinkInput from './components/TimeTable/LinkInput';
 import TestPage from './pages/TestPage';
 import './App.css'; // Import the global CSS
+import Ranking from './pages/Ranking'
 
 function App() {
   const [showInitialScreen, setShowInitialScreen] = useState(true);
@@ -26,6 +27,7 @@ function App() {
             <Route path="/aiws" element={<AIWS />} />
             <Route path="/link" element={<LinkInput />} />
             <Route path="/test" element={<TestPage />} />
+            <Route path="/ranking" element={<Ranking />} />
           </Routes>
         </Router>
       )}

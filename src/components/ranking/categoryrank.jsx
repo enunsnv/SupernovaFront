@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Modal } from '@mui/material';
 import axios from "axios";
 import api from "../../axios";
+import './ranking.css'
 
 const Container = styled.div`
     display: flex;
@@ -59,6 +60,28 @@ const Button = styled.button`
     }
 `;
 
+
+const Instructions = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 7vw;
+    color: black;
+  }
+  
+  span {
+   color: black;
+   text-align: center;
+   font-size: 3.5vw;
+  }
+`;
+
+
+
 const CategoryRank = () => {
     const [sortedData, setSortedData] = useState([]);
 
@@ -87,16 +110,15 @@ const CategoryRank = () => {
     }, []);
 
     return (
-        <div>
-            <h1>Category Rank</h1>
-            <ul>
-                {sortedData.map(item => (
-                    <li key={item.category}>
-                        {item.category}: {item.value}
-                    </li>
+        <Instructions>
+            <div class="grid">
+                {sortedData.map((item, index) => (
+                    <div className="item" key={index}>
+                        <img src={`${item.category}.jpg`} alt={item.category} />
+                    </div>
                 ))}
-            </ul>
-        </div>
+            </div>
+        </Instructions>
     );
 }
 export default CategoryRank;
