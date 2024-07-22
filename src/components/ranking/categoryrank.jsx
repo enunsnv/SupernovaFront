@@ -114,7 +114,7 @@ const CategoryRank = () => {
             <div class="grid-rank">
                 {sortedData.map((item, index) => (
                     <div className="item" key={index}>
-                        <img src={`${item.category}.jpg`} alt={item.category} />
+                        <img src={`${item.category}.png`} alt={item.category} />
                     </div>
                 ))}
             </div>

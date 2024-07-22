@@ -128,15 +128,17 @@ const AIWS = () => {
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [remainingAttempts, setRemainingAttempts] = useState(3);
+  const [content, setContent] = useState('');
+  const [title, setTitle] = useState('');
 
   const [data, setData] = useState({ content: '' });
 
   const getQuizes = async () => {
     try {
       const response = await api.get('/quiz/');
-      const data = await response.data;
-      
-      console.log(data);
+      setTitle(response.data.title);
+      setContent(response.data.content);
+
     } catch (error) {
       console.error(error);
     }
@@ -168,7 +170,7 @@ const AIWS = () => {
         answer: answer
       });
 
-      if (response.data.correct) {
+      if (response.data.is_correct) {
         setIsSuccessModalOpen(true);
       } else {
         setRemainingAttempts((prev) => prev - 1);
@@ -196,11 +198,11 @@ const AIWS = () => {
       <HeaderButton onClick={handleNavigateToStaff}>문제지 출제</HeaderButton>  {/* 문제지 출제 버튼을 추가합니다. */}
       <ReactSVG src={SolveTop} />
       <Section>
-        <QuestionHeader>이번 주 문제!</QuestionHeader>
+        <QuestionHeader>이번 주 문제! - {title}</QuestionHeader>
         <QuestionText>
-          {data.content}
+          {content}
         </QuestionText>
-        <QuestionAuthor>문제 제공: 김동우 교수님</QuestionAuthor>
+        <QuestionAuthor>문제 제공: OOO 교수님</QuestionAuthor>
         <InstructionsContainer>
           <Instructions>
             <li>⦁ 문제는 매주 업데이트되며 한 주 간 제공돼요</li>

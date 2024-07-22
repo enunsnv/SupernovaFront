@@ -68,7 +68,7 @@ const SelectCategory = ({ open, onClose, earnedEXP }) => {
             // 정렬된 데이터 배열 생성
             const sortedData = categoryOrder.map(category => ({
                 category,
-                src: `../${category}.jpg`,
+                src: `../${category}.png`,
                 alt: category
             }));
 
