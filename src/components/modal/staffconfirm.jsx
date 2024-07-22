@@ -33,7 +33,7 @@ const InputField = styled.input`
   padding: 10px;
   width: 80%;
   margin-bottom: 20px;
-  border: 1px solid #ffa500;
+  border: 1px solid #FFDA69;
   border-radius: 5px;
 `;
 
@@ -44,11 +44,11 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button`
   padding: 10px 20px;
-  background-color: #ffa500;
-  border: 1px solid #ffa500;
+  background-color: #FFDA69;
+  border :none;
   border-radius: 5px;
   cursor: pointer;
-  color: white;
+  color: black;
   font-size: 14px;
   margin: 0px 25px;
   width: 130px;
