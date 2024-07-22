@@ -24,7 +24,7 @@
 }
 
 .time-cell {
-    height: 33px; /* 시간단위 블럭 높이를 36px로 조정 */
+    height: 35px; /* 시간단위 블럭 높이를 36px로 조정 */
     text-align: center;
     line-height: 35px; /* 높이와 일치하도록 line-height 조정 */
     border-bottom: 1px solid #888888; /* 구분선 추가 */
@@ -44,7 +44,7 @@
     align-content: center;
     font-weight: bold;
     margin-top: 0px;
-    height: 27px; /* 시간단위 블럭과 동일한 높이로 조정 */
+    height: 34px; /* 시간단위 블럭과 동일한 높이로 조정 */
     grid-row: span 1; /* 상단에 위치 */
 }
 
