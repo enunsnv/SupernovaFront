@@ -9,13 +9,13 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 80%;
-    width: 30%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 450px;
     background-color: white;
     border: 1px solid #F27200;
     border-radius: 15px;
-    padding: 20px;
-    margin: 10px;
+    padding: 10px;
+    margin-right: 10px;
     box-sizing: border-box;
     position: absolute;
     top: 50%;
@@ -53,7 +53,7 @@ const TimeSlot = styled.div`
 const Button = styled.button`
     width: 100px;
     padding: 10px;
-    margin-top: auto;
+    margin-top: 0;
     border: 0px solid #4CAF50;
     border-radius: 10px;
     background-color: #FFDA69;
