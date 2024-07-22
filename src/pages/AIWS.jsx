@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅을 import 합니다.
 import Navbar from '../components/navigation/Navbar';
 import { ReactSVG } from 'react-svg';
 import SubmitIcon from '../components/assets/submit.svg';
 import SolveTop from '../components/assets/solve_top.svg';
-import ChallengeSubmit from '../components/modal/challengesubmit'; // Modal 컴포넌트를 import 합니다.
-import ChallengeSuccess from '../components/modal/challengesuccess'; // 성공 모달 컴포넌트를 import 합니다.
+import ChallengeSubmit from '../components/modal/challengesubmit';
+import ChallengeSuccess from '../components/modal/challengesuccess';
 import api from '../axios';
 
 
@@ -16,6 +17,7 @@ const AppContainer = styled.div`
     height: 100vh;
     justify-content: space-between;
     background-color: #fff;
+    position: relative;  /* 상대 위치를 설정합니다. */
 `;
 
 const Section = styled.div`
@@ -44,6 +46,7 @@ const QuestionAuthor = styled.div`
   font-size: 14px;
   color: #BBBBBB;
   text-align: right;
+  margin-bottom: 20px;
 `;
 
 const InstructionsContainer = styled.div`
@@ -94,23 +97,54 @@ const AnswerTextarea = styled.textarea`
   border: 1px solid #ffa500;
   background-color: #F5F5F5;
   width: 100%;
+  margin-bottom: 40px;
 `;
 
 const SubmitButton = styled.img`
   width: 60px;
   height: 60px;
   position: absolute;
-  bottom: 10px;  /* Adjust as needed */
-  right: -20px;  /* Adjust as needed */
+  bottom: 10px;  
+  right: -20px;  
   cursor: pointer;
- 
 `;
 
-function AIWS() {
+const HeaderButton = styled.button`
+  position: absolute;
+  top: 20px;  /* 헤더 버튼의 위치를 설정합니다. */
+  right: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #ffa500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const AIWS = () => {
+  const navigate = useNavigate();  // useNavigate 훅을 사용합니다.
   const [answer, setAnswer] = useState('');
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [remainingAttempts, setRemainingAttempts] = useState(3);
+
+  const [data, setData] = useState({ content: '' });
+
+  const getQuizes = async () => {
+    try {
+      const response = await api.get('/quiz/');
+      const data = await response.data;
+      
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getQuizes();
+  }, []);
 
   const handleAnswerChange = (e) => {
     setAnswer(e.target.value);
@@ -153,31 +187,18 @@ function AIWS() {
     setIsSuccessModalOpen(false);
   };
 
-  const data = useState([]);
-
-  const getQuizes = async () => {
-    try {
-      const response = await api.get('/quiz/');
-      const data = await response.data;
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    getQuizes();
-  }, []);
+  const handleNavigateToStaff = () => {
+    navigate('/staff');
+  };
 
   return (
     <AppContainer>
+      <HeaderButton onClick={handleNavigateToStaff}>문제지 출제</HeaderButton>  {/* 문제지 출제 버튼을 추가합니다. */}
       <ReactSVG src={SolveTop} />
       <Section>
         <QuestionHeader>이번 주 문제!</QuestionHeader>
         <QuestionText>
-          Lorem ipsum dolor sit amet consectetur. Sollicitudin quam iaculis mauris egestas mattis.
-          Semper tincidunt elementum consequat ut purus cursus est nulla quam. Lacus consequat in
-          faucibus tincidunt mauris. Ipsum ultrices dignissim erat posuere sem enim eu?
+          {data.content}
         </QuestionText>
         <QuestionAuthor>문제 제공: 김동우 교수님</QuestionAuthor>
         <InstructionsContainer>
