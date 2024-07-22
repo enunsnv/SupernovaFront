@@ -111,7 +111,7 @@ const CategoryRank = () => {
 
     return (
         <Instructions>
-            <div class="grid">
+            <div class="grid-rank">
                 {sortedData.map((item, index) => (
                     <div className="item" key={index}>
                         <img src={`${item.category}.jpg`} alt={item.category} />
