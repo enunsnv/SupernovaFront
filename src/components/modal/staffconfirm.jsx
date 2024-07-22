@@ -58,43 +58,37 @@ const Button = styled.button`
   }
 `;
 
-const StaffConfirm = ({ onClose, onSuccess }) => {
+const StaffConfirm = ({ onClose, onSuccess, onPasswordChange }) => {
   const [password, setPassword] = useState('');
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    onPasswordChange(e.target.value);
   };
 
   const handleSubmit = () => {
-    // Placeholder logic for submitting password
-    const mockPassword = "1234"; // Mock password for demonstration
-
-    if (password === mockPassword) {
-      onSuccess();
-    } else {
-      alert('Invalid password. Please try again.');
-    }
+    onSuccess();
   };
 
   return (
-    <ModalOverlay>
-      <ModalContainer>
-        <ModalHeader>
-          한 번 제출하면 수정할 수 없어요!<br />
-          인증 코드를 입력해주세요.
-        </ModalHeader>
-        <InputField
-          type="text"
-          placeholder="0000"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <ButtonContainer>
-          <Button onClick={handleSubmit}>제출</Button>
-          <Button onClick={onClose}>취소</Button>
-        </ButtonContainer>
-      </ModalContainer>
-    </ModalOverlay>
+      <ModalOverlay>
+        <ModalContainer>
+          <ModalHeader>
+            한 번 제출하면 수정할 수 없어요!<br />
+            인증 코드를 입력해주세요.
+          </ModalHeader>
+          <InputField
+              type="text"
+              placeholder="0000"
+              value={password}
+              onChange={handlePasswordChange}
+          />
+          <ButtonContainer>
+            <Button onClick={handleSubmit}>제출</Button>
+            <Button onClick={onClose}>취소</Button>
+          </ButtonContainer>
+        </ModalContainer>
+      </ModalOverlay>
   );
 };
 
