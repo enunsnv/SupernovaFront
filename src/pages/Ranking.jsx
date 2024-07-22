@@ -130,6 +130,8 @@ const ControllerImg = styled.img`
   width: 45px;
 `;
 
+
+
 function Ranking() {
 
     return (
