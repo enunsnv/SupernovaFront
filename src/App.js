@@ -5,6 +5,7 @@ import InitialScreen from './pages/Start';
 import AIWS from './pages/AIWS';
 import Login from './pages/Login';
 import Main from './pages/Main';
+import Staff from './pages/Staff';
 import Timer from './pages/Timer';
 import LinkInput from './components/TimeTable/LinkInput';
 import TestPage from './pages/TestPage';
@@ -22,6 +23,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/staff" element={<Staff/>}/>
             <Route path="/main" element={<Main />} />
             <Route path="/timer" element={<Timer />} />
             <Route path="/aiws" element={<AIWS />} />
