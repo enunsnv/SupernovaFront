@@ -19,7 +19,7 @@ const PetContainer = styled.div`
 `;
 
 const PetImage = styled.img`
-    width: 100%;
+    width: 90%;
     height: 100%;
     object-fit: cover;
 `;

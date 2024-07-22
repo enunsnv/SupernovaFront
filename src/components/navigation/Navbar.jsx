@@ -10,6 +10,7 @@ const Footer = styled.div`
   padding-top:50px;
   background: url('/img/nav.svg') no-repeat center center;
   background-size: cover; /* Ensures the SVG covers the entire background */
+    z-index: 1;
 `;
 
 const Icon = styled.div`

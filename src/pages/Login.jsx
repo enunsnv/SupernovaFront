@@ -27,7 +27,7 @@ const FormContainer = styled.div`
 
 const Logo = styled.img`
   width: 200px;
-  margin: 250px 0 50px;
+  margin: 160px 0 50px;
 `;
 
 const Input = styled.input`
@@ -46,8 +46,7 @@ const Button = styled.button`
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 70px;
-  margin-bottom: 45px;
+  margin-top: 90px;
   width: 100px;
   height: 40px;
   font-size: 15px;

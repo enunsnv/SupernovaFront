@@ -97,7 +97,7 @@ const ShapeLeft = styled.img`
   left: 0;
   top: 0;
   width: 100%;
-  max-width: 250px;
+  max-width: 350px;
   z-index: 1;
 
   @media (max-width: 500px) {
@@ -110,7 +110,7 @@ const ShapeRight = styled.img`
   right: 0;
   top: 0;
   width: 100%;
-  max-width: 250px;
+  max-width: 300px;
   z-index: 2;
 
   @media (max-width: 500px) {
@@ -137,8 +137,8 @@ function Ranking() {
     return (
         <AppContainer>
             <Header>
-                <ShapeLeft src='/img/left-orange.svg' alt="top shape" />
-                <ShapeRight src='/img/right-orange.svg' alt="top shape" />
+                <ShapeLeft src='/img/lank-left.svg' alt="top shape" />
+                <ShapeRight src='/img/lank-right.svg' alt="top shape" />
             </Header>
             <RankContainer/>
             <Navbar />
