@@ -1,4 +1,4 @@
-.grid {
+.grid-rank {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
@@ -7,14 +7,10 @@
     overflow-y: auto; /* 세로 스크롤 활성화 */
   }
   
-  .grid img {
+  .grid-rank img {
     width: 100%;
     height: auto;
     border-radius: 10px;
     border: 2px solid transparent;
     object-fit: cover; /* 이미지가 정사각형에 맞게 채워지도록 설정 */
-  }
-  
-  .item img:hover {
-    border: 2px solid #FFA500; /* 호버 시 주황색 테두리 */
   }

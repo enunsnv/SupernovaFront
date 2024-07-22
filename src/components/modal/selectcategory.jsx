@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Modal } from '@mui/material';
-import TimeSuccess from './timesuccess';
-import Pet from '../pet/pet';
+import axios from 'axios';
+import api from '../../axios';
+import '../ranking/ranking.css';
+import TimeSuccess from "./timesuccess";
 
 const Container = styled.div`
     display: flex;
@@ -36,18 +38,6 @@ const SubTitle = styled.div`
     margin-bottom: 20px;
 `;
 
-const CategoryContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 10px;
-    width: 100%;
-    height: 100vw;
-    max-height: 300px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-`;
-
 const Button = styled.button`
     padding: 10px 20px;
     border: 0px solid #4CAF50;
@@ -65,15 +55,32 @@ const Button = styled.button`
 const SelectCategory = ({ open, onClose, earnedEXP }) => {
     const [selected, setSelected] = useState([]);
     const [confirmationOpen, setConfirmationOpen] = useState(false);
+    const [categories, setCategories] = useState([]);
 
-    const categories = [
-        { src: '../category/image1.jpg', alt: 'Category 1' },
-        { src: '../category/image2.jpg', alt: 'Category 2' },
-        { src: '../category/image3.jpg', alt: 'Category 3' },
-        { src: '../category/image4.jpg', alt: 'Category 4' },
-        { src: '../category/image5.jpg', alt: 'Category 5' },
-        { src: '../category/image6.jpg', alt: 'Category 6' },
-    ];
+    const getCatRank = async () => {
+        try {
+            const response = await api.get('/rankcategory/');
+            const data = response.data;
+
+            // 카테고리 순서 배열
+            const categoryOrder = ['read', 'movie', 'walk', 'workout', 'study', 'sleep'];
+
+            // 정렬된 데이터 배열 생성
+            const sortedData = categoryOrder.map(category => ({
+                category,
+                src: `../${category}.jpg`,
+                alt: category
+            }));
+
+            setCategories(sortedData);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        getCatRank();
+    }, []);
 
     const handleSelect = (category) => {
         setSelected((prev) => {
@@ -103,16 +110,17 @@ const SelectCategory = ({ open, onClose, earnedEXP }) => {
                 <Container>
                     <Title>활동 카테고리</Title>
                     <SubTitle>오늘은 어떤 활동을 했나요? (최대 2개)</SubTitle>
-                    <CategoryContainer>
+                    <div className="grid-rank">
                         {categories.map((category) => (
-                            <Pet
-                                key={category}
+                            <div
+                                key={category.alt}
                                 onClick={() => handleSelect(category)}
-                                selected={selected.includes(category)}
-                                imageUrl={category.src}
-                            />
+                                className={`item ${selected.includes(category) ? 'selected' : ''}`}
+                            >
+                                <img src={category.src} alt={category.alt} />
+                            </div>
                         ))}
-                    </CategoryContainer>
+                    </div>
                     <Button disabled={selected.length === 0} onClick={handleConfirm}>
                         선택 완료
                     </Button>
