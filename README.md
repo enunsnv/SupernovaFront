@@ -13,7 +13,6 @@
 
 ## 팀원 구성
 
-<div align="center">
 
 ### 박서연 UI Design
 ### 류성호 BackEnd Dev
